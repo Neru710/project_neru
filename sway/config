@@ -2,28 +2,7 @@
 # ────────────────────────────────────────────────
 
 # ╭────────────────────────────────────────────╮
-# │             IMPORTA CONFIGS                 │
-# ╰────────────────────────────────────────────╯
-include ~/.config/sway/env.conf
-include ~/.config/sway/style.conf
-include ~/.config/sway/keybinds.conf
-include ~/.config/sway/autostart.conf
-include ~/.config/sway/rules.conf
-include ~/.config/sway/bar.conf
-
-# ╭────────────────────────────────────────────╮
-# │              TECLA MOD (SUPER)              │
-# ╰────────────────────────────────────────────╯
-set $mod Mod4
-
-# ╭────────────────────────────────────────────╮
-# │           SAÍDA DBUS PARA SWAY              │
-# ╰────────────────────────────────────────────╯
-# Caso precise de dbus para alguns apps, descomente
-# exec_always dbus-launch --sh-syntax --exit-with-session sway
-
-# ╭────────────────────────────────────────────╮
-# │               LAYOUT DO TECLADO              │
+# │               LAYOUT DO TECLADO            │
 # ╰────────────────────────────────────────────╯
 # Configuração de teclado ABNT2 brasileiro
 input * {
@@ -32,3 +11,23 @@ input * {
     # Evita interferência com compose key, se usar
     # xkb_options grp_led:scroll
 }
+
+# ╭────────────────────────────────────────────╮
+# │              TECLA MOD (SUPER)             │
+# ╰────────────────────────────────────────────╯
+set $mod Mod4
+
+# ╭────────────────────────────────────────────╮
+# │             IMPORTA CONFIGS                │
+# ╰────────────────────────────────────────────╯
+include ~/.config/sway/env.conf
+include ~/.config/sway/keybinds.conf
+include ~/.config/sway/style.conf
+
+# ╭────────────────────────────────────────────╮
+# │           SAÍDA DBUS PARA SWAY             │
+# ╰────────────────────────────────────────────╯
+# Caso precise de dbus para alguns apps, descomente
+# exec_always dbus-launch --sh-syntax --exit-with-session sway
+
+
