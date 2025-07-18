@@ -16,8 +16,8 @@ Um setup leve, funcional e 100% open source para Hyprland no Arch Linux. Feito p
 git clone https://github.com/seuusuario/project_neru.git
 cd project_neru
 cp -r .config ~/
-chmod +x ~/.config/hypr/scripts/startup.sh
-hyprctl reload
+chmod +x ~/.config/sway/autostart.sh
+./autostart.sh
 ```
 
 ## Licença
