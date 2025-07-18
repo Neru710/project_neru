@@ -26,5 +26,3 @@ Distribuído sob a [GNU GPLv3](https://www.gnu.org/licenses/gpl-3.0.html).
 Use, modifique e compartilhe com liberdade.
 
 ---
-
-Se quiser, posso gerar a versão em inglês também. Só avisar.
