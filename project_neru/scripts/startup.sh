@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# ╭────────────────────────────────────────────╮
+# │     🚀 startup.sh - project_neru           │
+# │    Inicialização cirúrgica e estilosa      │
+# ╰────────────────────────────────────────────╯
+
 function run {
   if ! pgrep -x "$1" > /dev/null ; then
     "$@" &
@@ -8,32 +13,30 @@ function run {
 
 sleep 1
 
-# Áudio
+# ─── 🔊 Áudio ─────────────────────────────────
 run pipewire
 run pipewire-pulse
 run wireplumber
 
-# Rede
+# ─── 🌐 Rede ──────────────────────────────────
 run nm-applet
 
-# Área de transferência
+# ─── 📋 Área de transferência ────────────────
 run clipman
 
-# Controle de áudio no tray
+# ─── 🌀 Tray de áudio ─────────────────────────
 run pavucontrol --tray
 
-# Notificações
-run mako
+# ─── 🔔 Notificações com estilo ──────────────
+run dunst
 
-# Barra de status
+# ─── 📊 Barra de status braba ────────────────
 run waybar
 
-# Wallpaper
-run swww init
-run swww img ~/.config/wallpapers/zen.jpg
+# ─── 🖼️ Wallpaper com crossfade insano ────────
+run hyprpaper
 
-# Tema escuro GTK
+# ─── 🌙 Tema GTK escuro ───────────────────────
 gsettings set org.gnome.desktop.interface color-scheme 'prefer-dark'
 
 exit 0
-

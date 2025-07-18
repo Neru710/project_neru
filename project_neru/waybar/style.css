@@ -1,7 +1,52 @@
 * {
-  font-family: "JetBrainsMono Nerd Font", monospace;
-  font-size: 12px;
-  color: #ffffff;
-  background: #1e1e2e;
+font-family: "JetBrainsMono Nerd Font";
+font-size: 13px;
+color: #c0caf5;
+border: none;
+padding: 0 10px;
 }
 
+window#waybar {
+  background-color: rgba(26, 27, 38, 0.85);
+  border-bottom: 2px solid #39ff14;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+}
+
+#custom-neru {
+background: #39ff14;
+color: #1a1b26;
+font-weight: bold;
+padding: 0 12px;
+border-radius: 0 10px 10px 0;
+}
+
+#workspaces button {
+padding: 0 8px;
+background: transparent;
+color: #c0caf5;
+border-radius: 6px;
+}
+
+#workspaces button.focused {
+background: #39ff14;
+color: #1a1b26;
+font-weight: bold;
+}
+
+#cpu,
+#memory,
+#temperature,
+#battery,
+#pulseaudio,
+#network,
+#clock,
+#tray {
+background: rgba(255, 255, 255, 0.04);
+margin: 0 4px;
+border-radius: 8px;
+padding: 0 10px;
+}
+
+#battery.charging {
+color: #39ff14;
+}

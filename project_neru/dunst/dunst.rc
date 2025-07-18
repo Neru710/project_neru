@@ -1,0 +1,58 @@
+# Configuração do Dunst - project_neru
+
+# ╭────────────────────────────────────────────╮
+# │                CONFIGURAÇÃO GLOBAL         │
+# ╰────────────────────────────────────────────╯
+[global]
+    geometry = "300x80-10+40"                  # Tamanho e posição da notificação (largura x altura - X + Y)
+    transparency = 10                         # Transparência das notificações (0-100)
+    frame_width = 2                           # Largura da borda
+    separator_height = 2                      # Espaço entre linhas
+    origin = "top-right"                      # Posição da notificação na tela
+    follow = mouse                           # Faz a notificação seguir o mouse
+    font = "JetBrainsMono Nerd Font 10"      # Fonte nerd com estilo
+    format = "%s"                             # Formato da mensagem
+    idle_threshold = 60                       # Tempo para considerar o usuário inativo (em segundos)
+    history_length = 20                       # Quantidade de notificações armazenadas
+
+# ╭────────────────────────────────────────────╮
+# │                URGÊNCIA BAIXA              │
+# ╰────────────────────────────────────────────╯
+[urgency_low]
+    background = "#1a1b26"                   # Fundo escuro, azul petróleo
+    foreground = "#c0caf5"                   # Texto claro azul claro
+    frame_color = "#39ff14"                  # Borda neon verde-limão
+
+# ╭────────────────────────────────────────────╮
+# │              URGÊNCIA NORMAL                │
+# ╰────────────────────────────────────────────╯
+[urgency_normal]
+    background = "#282c34"                   # Fundo cinza escuro suave
+    foreground = "#d0d0d0"                   # Texto cinza claro
+    frame_color = "#7aa2f7"                  # Borda azul suave
+
+# ╭────────────────────────────────────────────╮
+# │             URGÊNCIA CRÍTICA                │
+# ╰────────────────────────────────────────────╯
+[urgency_critical]
+    background = "#ff0059"                   # Vermelho neon forte
+    foreground = "#ffffff"                   # Texto branco
+    frame_color = "#ff0059"                  # Borda vermelho neon
+
+# ╭────────────────────────────────────────────╮
+# │              OUTRAS CONFIGURAÇÕES           │
+# ╰────────────────────────────────────────────╯
+[frame]
+    width = 2
+    color = "#39ff14"
+
+[layout]
+    alignment = left
+    fixed_geometry = true
+
+[mouse]
+    middle_click = close                      # Fecha a notificação com clique do meio
+    right_click = close                       # Fecha a notificação com clique direito
+
+[actions]
+    enable = true
