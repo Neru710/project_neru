@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# installer.sh - Script de Instalação para Arch Linux (Sway, Waybar, Dotfiles, Fontes e Yay)
+# installer.sh - Script de Instalação para Arch Linux (Sway, Waybar, Dotfiles, Fontes, Yay, Xwayland e Diretórios de Usuário)
 
 # --- Variáveis de Configuração ---
 PROJECT_NAME="Configurações Sway/Waybar"
@@ -56,6 +56,8 @@ PACKAGES=(
     git # Garante que o git esteja instalado para clonar o repositório e o yay
     noto-fonts-emoji # Boa para complementar com símbolos e emojis em fontes
     base-devel # Essencial para compilar pacotes do AUR (como o yay)
+    xorg-xwayland # Adicionado para compatibilidade com aplicativos X11
+    xdg-user-dirs # Para criar os diretórios padrão do usuário
 )
 
 log_message "Instalando pacotes necessários: ${PACKAGES[*]}..."
@@ -85,7 +87,12 @@ log_message "Clonando o repositório de dotfiles: $DOTFILES_REPO para $INSTALL_D
 git clone "$DOTFILES_REPO" "$INSTALL_DIR/dotfiles" || error_exit "Falha ao clonar o repositório de dotfiles."
 log_message "Repositório de dotfiles clonado com sucesso."
 
-# 7. Copiar as pastas 'sway' e 'waybar' para ~/.config/
+# 7. Criar diretórios padrão do usuário
+log_message "Verificando e criando diretórios padrão do usuário (Downloads, Documentos, etc.)..."
+xdg-user-dirs-update || log_message "Aviso: Falha ao criar/atualizar diretórios do usuário com xdg-user-dirs-update."
+log_message "Diretórios padrão do usuário verificados/criados."
+
+# 8. Copiar configurações de Sway e Waybar
 log_message "Copiando configurações de sway e waybar para ~/.config/..."
 
 # Cria o diretório .config se não existir
@@ -99,7 +106,7 @@ else
     log_message "Aviso: Pasta 'sway' não encontrada no repositório clonado. Pulando cópia."
 fi
 
-# Cópia da pasta 'waybar'
+# Cópia da pasta 'waybar' (config, style.css e scripts, incluindo power-menu.sh)
 if [ -d "$INSTALL_DIR/dotfiles/waybar" ]; then
     cp -r "$INSTALL_DIR/dotfiles/waybar" "$HOME/.config/" || error_exit "Falha ao copiar a pasta 'waybar'."
     log_message "Pasta 'waybar' copiada para ~/.config/."
@@ -107,12 +114,23 @@ else
     log_message "Aviso: Pasta 'waybar' não encontrada no repositório clonado. Pulando cópia."
 fi
 
-# 8. Habilitar o SDDM
+# Garante permissão de execução para o power-menu.sh após a cópia
+POWER_MENU_SCRIPT="$HOME/.config/waybar/scripts/power-menu.sh"
+if [ -f "$POWER_MENU_SCRIPT" ]; then
+    log_message "Dando permissão de execução para o script power-menu.sh..."
+    chmod +x "$POWER_MENU_SCRIPT" || error_exit "Falha ao dar permissão de execução para power-menu.sh."
+    log_message "Permissão de execução concedida para power-menu.sh."
+else
+    log_message "Aviso: Script power-menu.sh não encontrado em $POWER_MENU_SCRIPT após a cópia. Certifique-se de que ele está no seu repositório dotfiles."
+fi
+
+
+# 9. Habilitar o SDDM
 log_message "Habilitando o serviço SDDM para iniciar com o sistema..."
 sudo systemctl enable sddm || error_exit "Falha ao habilitar o serviço SDDM."
 log_message "SDDM habilitado com sucesso."
 
-# 9. Limpar o diretório temporário
+# 10. Limpar o diretório temporário
 log_message "Removendo diretório temporário: $INSTALL_DIR"
 rm -rf "$INSTALL_DIR" || log_message "Aviso: Não foi possível remover o diretório temporário $INSTALL_DIR."
 
@@ -121,7 +139,7 @@ log_message "Instalação e configuração de $PROJECT_NAME concluídas com suce
 echo ""
 echo "----------------------------------------------------"
 echo "Instalação Concluída!"
-echo "O SDDM foi habilitado e a sua Nerd Font favorita instalada."
+echo "Os diretórios padrão do usuário foram criados/verificados."
 echo "Você precisa REINICIAR o sistema agora para que o SDDM inicie e você possa selecionar a sessão Sway."
 echo "O log completo da instalação está em: $LOG_FILE"
 echo "----------------------------------------------------"
