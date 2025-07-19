@@ -1,33 +1,80 @@
-# Config principal do Sway - project_neru
-# ────────────────────────────────────────────────
+#-------------------------------
+#       Layout do teclado
+#-------------------------------
+input * xkb_layout br
+input * xkb_variant abnt2
 
-# ╭────────────────────────────────────────────╮
-# │               LAYOUT DO TECLADO            │
-# ╰────────────────────────────────────────────╯
-# Configuração de teclado ABNT2 brasileiro
-input * {
-    xkb_layout br
-    xkb_variant abnt2
-    # Evita interferência com compose key, se usar
-    # xkb_options grp_led:scroll
-}
-
-# ╭────────────────────────────────────────────╮
-# │              TECLA MOD (SUPER)             │
-# ╰────────────────────────────────────────────╯
+#--------------------------------
+#             Super
+#--------------------------------
 set $mod Mod4
 
-# ╭────────────────────────────────────────────╮
-# │             IMPORTA CONFIGS                │
-# ╰────────────────────────────────────────────╯
-include ~/.config/sway/env.conf
-include ~/.config/sway/keybinds.conf
-include ~/.config/sway/style.conf
+#--------------------------------
+#             Apps 
+#--------------------------------
+bindsym $mod+Return exec kitty
+bindsym $mod+T exec kitty
+bindsym $mod+E exec dolphin
+bindsym $mod+B exec firefox
+#bindsym $mod+A exec wofi
+bindsym $mod+Q kill
+bindsym $mod+Shift+c reload
+bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
 
-# ╭────────────────────────────────────────────╮
-# │           SAÍDA DBUS PARA SWAY             │
-# ╰────────────────────────────────────────────╯
-# Caso precise de dbus para alguns apps, descomente
-# exec_always dbus-launch --sh-syntax --exit-with-session sway
+#--------------------------------
+#     Mudar Foco Das Janelas
+#--------------------------------
+bindsym $mod+Left focus left
+bindsym $mod+Right focus right
+bindsym $mod+Up focus up
+bindsym $mod+Down focus down
 
+#--------------------------------
+#      Mover Janela Focada
+#--------------------------------
+bindsym $mod+Shift+left move left
+bindsym $mod+Shift+right move right
+bindsym $mod+Shift+up move up
+bindsym $mod+Shift+down move down
 
+#--------------------------------
+#        Workspace Names
+#--------------------------------
+set $ws1 "1"
+set $ws2 "2"
+set $ws3 "3"
+set $ws4 "4"
+set $ws5 "5"
+set $ws6 "6"
+set $ws7 "7"
+set $ws8 "8"
+set $ws9 "9"
+set $ws10 "10"
+
+#--------------------------------
+#        Switch Workspace
+#--------------------------------
+bindsym $mod+1 workspace $ws1
+bindsym $mod+2 workspace $ws2
+bindsym $mod+3 workspace $ws3
+bindsym $mod+4 workspace $ws4
+bindsym $mod+5 workspace $ws5
+bindsym $mod+6 workspace $ws6
+bindsym $mod+7 workspace $ws7
+bindsym $mod+8 workspace $ws8
+bindsym $mod+9 workspace $ws9
+bindsym $mod+0 workspace $ws10
+
+#--------------------------------
+#    Move For Other Workspace
+#------------------------------
+bindsym $mod+Shift+1 move container to workspace $ws1
+bindsym $mod+Shift+2 move container to workspace $ws2
+bindsym $mod+Shift+3 move container to workspace $ws3
+bindsym $mod+Shift+4 move container to workspace $ws4
+bindsym $mod+Shift+5 move container to workspace $ws5
+bindsym $mod+Shift+6 move container to workspace $ws6
+bindsym $mod+Shift+7 move container to workspace $ws7
+bindsym $mod+Shift+8 move container to workspace $ws8
+bindsym $mod+Shift+9 move container to workspace $ws9
+bindsym $mod+Shift+0 move container to workspace $ws10
