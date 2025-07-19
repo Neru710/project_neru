@@ -22,6 +22,11 @@ bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
 
 #--------------------------------
+#           Specials
+#--------------------------------
+bindsym $mod+F fullscreen
+
+#--------------------------------
 #     Mudar Foco Das Janelas
 #--------------------------------
 bindsym $mod+Left focus left
