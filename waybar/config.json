@@ -1,0 +1,139 @@
+{
+    "layer": "top",
+    "position": "top",
+    "mod": "dock",
+    "exclusive": true,
+    "passthrough": false,
+    "gtk-layer-shell": true,
+    "height": 30, // Altura da sua barra, pode ajustar
+
+    "modules-left": [
+        "cpu",
+        "memory",
+        "disk"
+    ],
+    "modules-center": [
+        "sway/workspaces"
+    ],
+    "modules-right": [
+        "network",
+        "pulseaudio",
+        "battery",
+        "backlight",
+        "clock",
+        "custom/calendar",
+        "custom/exit"
+    ],
+
+    // Módulos da Esquerda: CPU, RAM, Disco
+    "cpu": {
+        "format": "CPU: {usage}%",
+        "tooltip": true,
+        "interval": 1,
+        "format-alt": "CPU: {usage}% | Load: {avg_load0}",
+        "tooltip-format": "CPU: {usage}% | Carga Média: {avg_load0}, {avg_load1}, {avg_load2}"
+    },
+    "memory": {
+        "format": "RAM: {percentage}%",
+        "tooltip": true,
+        "interval": 1,
+        "format-alt": "RAM: {used}G/{total}G ({percentage}%)",
+        "tooltip-format": "RAM Usada: {used}G ({percentage}%)"
+    },
+    "disk": {
+        "format": "Disco: {percentage_used}%",
+        "path": "/", // Monitora a partição raiz
+        "tooltip": true,
+        "interval": 30,
+        "format-alt": "Disco: {used}G/{total}G ({percentage_used}%)",
+        "tooltip-format": "Disco: {used}G ({percentage_used}%) em {path}"
+    },
+
+    // Módulo do Centro: Workspaces do Sway
+    "sway/workspaces": {
+        "format": "{name}",
+        "all-outputs": true,
+        "format-config": { // Nomes mais visuais para os workspaces
+            "1": { "text": "一" },
+            "2": { "text": "二" },
+            "3": { "text": "三" },
+            "4": { "text": "四" },
+            "5": { "text": "五" },
+            "6": { "text": "六" },
+            "7": { "text": "七" },
+            "8": { "text": "八" },
+            "9": { "text": "九" },
+            "10": { "text": "十" }
+        },
+        "on-click": "activate_workspace",
+        "persistent_workspaces": {
+             "*": 10 // Garante 10 workspaces visíveis em todas as telas
+        }
+    },
+
+    // Módulos da Direita: Rede, Áudio, Bateria, Brilho, Relógio, Calendário, Sair
+    "network": {
+        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-ethernet": "󰈀 {ipaddr}/{ifname}",
+        "format-disconnected": "󰤮 Desconectado",
+        "tooltip-format-wifi": "{essid} ({signalStrength}%) |  {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "tooltip-format-ethernet": "{ifname} |  {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "interval": 5
+    },
+    "pulseaudio": {
+        "format": "🔊 {volume}% {format_source}",
+        "format-muted": "🔇 Silenciado",
+        "format-source": "🎤 {volume}%",
+        "format-source-muted": "🎙️ Silenciado",
+        "tooltip": true,
+        "scroll-step": 1,
+        "on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
+        "on-scroll-up": "pactl set-sink-volume @DEFAULT_SINK@ +5%",
+        "on-scroll-down": "pactl set-sink-volume @DEFAULT_SINK@ -5%"
+    },
+    "battery": {
+        "format": "{icon} {percentage}%",
+        "format-charging": "充電 {percentage}%",
+        "format-plugged": " {percentage}%",
+        "format-alt": "{icon} {time}",
+        "format-full": " Completa",
+        "format-null": "N/A",
+        "interval": 60,
+        "states": {
+            "good": 90,
+            "warning": 30,
+            "critical": 15
+        },
+        "icons": {
+            "good": "",
+            "warning": "",
+            "critical": "",
+            "full": ""
+        }
+    },
+    "backlight": {
+        "format": " {percent}%",
+        "tooltip": true,
+        "interval": 1,
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-"
+    },
+    "clock": {
+        "format": "{: %H:%M}", // Hora e minuto com ícone de relógio
+        "format-alt": "{: %d/%m/%Y %H:%M}", // Alterna para data completa ao clicar
+        "tooltip-format": "<big>{:%A, %d de %B de %Y}</big>" // Data completa no tooltip
+    },
+    "custom/calendar": {
+        "format": "", // Ícone de calendário
+        "tooltip": true,
+        "tooltip-format": "{: %A, %d de %B de %Y}\n{custom_calendar_tooltip}", // Data e o `cal` no tooltip
+        "exec": "cal", // Executa o comando `cal` para o conteúdo do tooltip
+        "on-click": "xdg-open 'https://calendar.google.com'", // Exemplo: abre o Google Calendar no navegador
+        "interval": 3600 // Atualiza a cada hora (o conteúdo do tooltip é atualizado no clique)
+    },
+    "custom/exit": {
+        "format": "⏻", // Ícone de power
+        "tooltip": "Desligar / Reiniciar / Sair",
+        "on-click": "exec swaynag -t warning -m 'O que deseja fazer?' -b 'Sair' 'swaymsg exit' -b 'Reiniciar' 'systemctl reboot' -b 'Desligar' 'systemctl poweroff'"
+    }
+}

@@ -1,0 +1,89 @@
+/* Configurações Globais */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "JetBrainsMono Nerd Font", monospace; /* Sua fonte preferida com ícones (Nerd Font) */
+    font-size: 13px;
+    min-height: 0;
+}
+
+/* Janela da Waybar */
+window#waybar {
+    background: rgba(43, 48, 59, 0.5); /* Fundo cinza escuro com 50% de transparência */
+    color: #ffffff; /* Cor padrão do texto */
+}
+
+/* Módulos Esquerda: CPU, RAM, Disco */
+#cpu,
+#memory,
+#disk {
+background-color: #4CAF50; /* Verde */
+color: #ffffff;
+padding: 0 10px;
+margin: 0 2px;
+}
+
+/* Módulos Centro: Workspaces */
+#workspaces button {
+padding: 0 5px;
+background-color: transparent;
+color: #ffffff;
+border-bottom: 2px solid transparent;
+}
+
+#workspaces button:hover {
+background: rgba(0, 0, 0, 0.2);
+border-bottom: 2px solid #5a8e9c;
+}
+
+#workspaces button.focused {
+background-color: #5a8e9c; /* Azul/verde para workspace focado */
+color: #ffffff;
+border-bottom: 2px solid #36a3d9;
+}
+
+#workspaces button.urgent {
+background-color: #eb4d4b; /* Vermelho para workspace com notificação urgente */
+color: #ffffff;
+}
+
+/* Módulos Direita: Rede, Áudio, Bateria, Brilho, Relógio, Calendário, Sair */
+#network,
+#pulseaudio,
+#battery,
+#backlight,
+#clock,
+#custom-calendar,
+#custom-exit {
+background-color: #333333; /* Cinza escuro */
+color: #ffffff;
+padding: 0 10px;
+margin: 0 2px;
+}
+
+#pulseaudio.muted {
+background-color: #e67c73; /* Vermelho claro para volume silenciado */
+}
+
+#battery.charging, #battery.plugged {
+background-color: #2196F3; /* Azul para carregando/conectado */
+}
+
+#battery.warning {
+background-color: #FFC107; /* Amarelo para bateria baixa */
+color: #000000; /* Texto preto para contraste */
+}
+
+#battery.critical {
+background-color: #F44336; /* Vermelho para bateria crítica */
+}
+
+/* Tooltips (caixas de informações ao passar o mouse) */
+#waybar .tooltip {
+background-color: #1a1a1a;
+color: #ffffff;
+padding: 10px;
+border-radius: 5px;
+font-size: 12px;
+opacity: 0.9;
+}

@@ -5,6 +5,16 @@ input * xkb_layout br
 input * xkb_variant abnt2
 
 #--------------------------------
+#    Barra de Status (Waybar)
+#--------------------------------
+exec_always waybar &
+
+#--------------------------------
+#       Aparência da Fonte
+#--------------------------------
+font pango:JetBrainsMono Nerd Font 10
+
+#--------------------------------
 #             Super
 #--------------------------------
 set $mod Mod4
