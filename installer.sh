@@ -47,6 +47,9 @@ log_message "Sistema atualizado com sucesso."
 # 3. Instalar pacotes necessários (do repositório oficial)
 PACKAGES=(
     wayland
+    sway
+    firefox
+    flatpak
     waybar
     mako
     sddm
