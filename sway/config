@@ -15,6 +15,11 @@ exec_always waybar &
 font pango:JetBrainsMono Nerd Font 10
 
 #--------------------------------
+#        Estilo de Janela
+#--------------------------------
+default_border none
+
+#--------------------------------
 #             Super
 #--------------------------------
 set $mod Mod4
