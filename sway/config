@@ -26,7 +26,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+T exec kitty
 bindsym $mod+E exec dolphin
 bindsym $mod+B exec firefox
-#bindsym $mod+A exec wofi
+bindsym $mod+A exec wofi --show drun
 bindsym $mod+Q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
@@ -82,7 +82,7 @@ bindsym $mod+0 workspace $ws10
 
 #--------------------------------
 #    Move For Other Workspace
-#------------------------------
+#--------------------------------
 bindsym $mod+Shift+1 move container to workspace $ws1
 bindsym $mod+Shift+2 move container to workspace $ws2
 bindsym $mod+Shift+3 move container to workspace $ws3
@@ -93,3 +93,10 @@ bindsym $mod+Shift+7 move container to workspace $ws7
 bindsym $mod+Shift+8 move container to workspace $ws8
 bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
+
+#--------------------------------
+#          Move Windows
+#--------------------------------
+bindsym $mod+button1 floating_bindsym $mod+button1 move
+bindsym $mod+button2 floating_bindsym $mod+button2 resize
+
