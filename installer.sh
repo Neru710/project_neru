@@ -48,9 +48,11 @@ log_message "Sistema atualizado com sucesso."
 PACKAGES=(
     wayland
     sway
+    swaybg
     firefox
     flatpak
     waybar
+    pavucontrol
     mako
     sddm
     dolphin
