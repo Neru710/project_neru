@@ -1,0 +1,102 @@
+/* ~/.config/wlogout/style.css */
+
+/* Cores Catppuccin Mocha */
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+@define-color text #cdd6f4;
+@define-color subtext0 #a6adc8;
+@define-color lavender #b4befe;
+@define-color blue #89b4fa;
+@define-color sapphire #74c7ce;
+@define-color green #a6e3a1;
+@define-color yellow #f9e2af;
+@define-color peach #fab387;
+@define-color maroon #eebebe;
+@define-color red #f38ba8;
+@define-color flamingo #f2cdcd;
+@define-color rosewater #f5e0dc;
+
+window {
+    background-color: transparent; /* Apenas para garantir que não haja fundo extra */
+}
+
+/* Container principal dos botões */
+#buttons {
+background-color: @mantle; /* Fundo do container dos botões, ligeiramente mais claro que o base */
+border-radius: 12px; /* Cantos arredondados */
+padding: 20px;
+box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4); /* Sombra para dar profundidade */
+}
+
+/* Estilo para cada botão */
+button {
+    background-color: @base; /* Fundo padrão do botão */
+    color: @text; /* Cor do texto/ícone */
+    border: 2px solid @mantle; /* Borda sutil */
+    border-radius: 8px; /* Cantos arredondados para os botões */
+    margin: 8px; /* Espaçamento entre os botões */
+    padding: 15px 25px; /* Preenchimento interno */
+    min-width: 120px; /* Largura mínima para botões */
+    font-size: 16px;
+    font-weight: bold;
+    transition: background-color 0.2s ease-in-out, border-color 0.2s ease-in-out, color 0.2s ease-in-out; /* Transição suave */
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2); /* Sombra leve */
+}
+
+/* Estado hover (quando o mouse passa por cima) */
+button:hover {
+    background-color: @lavender; /* Cor principal de destaque do Catppuccin */
+    color: @base; /* Mudar a cor do texto para contrastar */
+    border-color: @lavender; /* Cor da borda no hover */
+}
+
+/* Estado active (quando o botão é clicado) */
+button:active {
+    background-color: @sapphire; /* Outra cor de destaque */
+    color: @base;
+    border-color: @sapphire;
+}
+
+/* Estilos específicos para ícones (se você usar ícones, por exemplo com Font Awesome) */
+button label {
+    font-family: "Font Awesome 6 Free", "Font Awesome 6 Brands", "FiraCode Nerd Font"; /* Certifique-se de que a fonte de ícones está instalada */
+    font-weight: 900; /* Para ícones sólidos do Font Awesome */
+}
+
+/* Estilo para a caixa de diálogo de confirmação (se wlogout tiver uma) */
+#confirm {
+background-color: @base;
+border-radius: 10px;
+padding: 20px;
+box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.5);
+border: 2px solid @lavender; /* Borda de destaque */
+}
+
+#confirm button {
+background-color: @mantle;
+color: @text;
+border: 1px solid @subtext0;
+}
+
+#confirm button:hover {
+background-color: @lavender;
+color: @base;
+border-color: @lavender;
+}
+
+#confirm button.cancel {
+background-color: @red; /* Botão de cancelar em vermelho */
+color: @text;
+border-color: @red;
+}
+
+#confirm button.cancel:hover {
+background-color: @maroon; /* Vermelho mais escuro no hover */
+}
+
+#confirm label {
+color: @text;
+font-size: 18px;
+margin-bottom: 15px;
+}

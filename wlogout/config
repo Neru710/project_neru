@@ -1,0 +1,67 @@
+# ~/.config/wlogout/config
+
+# Example config
+# Please see https://github.com/agrmohit/wlogout for full documentation
+#
+# Buttons are layed out in a grid fashion starting from the top left
+# (0,0) (1,0) (2,0)
+# (0,1) (1,1) (2,1) etc.
+#
+
+[buttons]
+# Label and action must be defined
+# Icon is optional
+# text color and background color are also optional and will override
+# the global colors in style.css
+
+# Shutdown
+# command = systemctl poweroff
+# label = " Shutdown"
+# tooltip = "Power Off"
+
+# Reboot
+# command = systemctl reboot
+# label = " Reboot"
+# tooltip = "Reboot"
+
+# Suspend
+# command = systemctl suspend
+# label = "󰤄 Suspend"
+# tooltip = "Suspend"
+
+# Hibernate
+# command = systemctl hibernate
+# label = "󰒲 Hibernate"
+# tooltip = "Hibernate"
+
+# Lock
+# command = swaylock -f -c 000000
+# label = " Lock"
+# tooltip = "Lock Screen"
+
+# Logout (Sway)
+# command = swaymsg exit
+# label = "󰍃 Logout"
+# tooltip = "Logout"
+
+# --- Meus botões Catppuccin ---
+# Você pode usar ícones Nerd Font (como Fira Code Nerd Font que você instalou)
+# Ou Font Awesome se tiver instalado separadamente.
+
+# Desligar
+"󰐥" = "systemctl poweroff", "Desligar", "red"
+
+# Reiniciar
+"󰜉" = "systemctl reboot", "Reiniciar", "blue"
+
+# Suspender
+"󰤄" = "systemctl suspend", "Suspender", "lavender"
+
+# Bloquear
+" padlock" = "swaylock -f -c 000000", "Bloquear", "yellow"
+
+# Sair (Logout)
+"󰍃" = "swaymsg exit", "Sair", "green"
+
+# Você pode adicionar mais botões conforme sua necessidade
+# "󰅁" = "systemctl hibernate", "Hibernar", "sapphire"
