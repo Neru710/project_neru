@@ -86,6 +86,6 @@
     "custom/power": {
         "format": "", // Ícone de power
         "tooltip": false,
-        "on-click": "wlogout" // Sugestão: usar um menu de saída como 'wlogout'
+        "on-click": "wlogout" // <--- AQUI: Chamada direta para wlogout
     }
 }
