@@ -47,14 +47,14 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
 #--------------------------------
 #           Specials
 #--------------------------------
-Ttela cheia
+#Tela cheia
 bindsym $mod+F fullscreen
 
 #Tirar print
 bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh
 
 #Menu de logout
-bindsym $mod+esc exec wlogout
+bindsym $mod+Escape exec wlogout
 
 #--------------------------------
 #     Mudar Foco Das Janelas
