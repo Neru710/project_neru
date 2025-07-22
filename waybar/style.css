@@ -1,23 +1,27 @@
 /*
- * Waybar Style.css - Tema Moderno / Underground
- * Cores escuras, minimalismo e toques de destaque
+ * Waybar Style.css - Tema Moderno / Underground Turbinado
+ * Cores escuras, minimalismo elegante com toque neon
  */
 
 /* Estilo geral da Waybar */
 #waybar {
-background-color: rgba(20, 20, 20, 0.9); /* Fundo bem escuro com leve transparência */
-border-bottom: 2px solid rgba(50, 50, 50, 0.7); /* Borda inferior sutil */
-color: #e0e0e0; /* Cor do texto padrão (cinza claro) */
-font-family: "FiraCode Nerd Font Mono", monospace; /* Sua fonte Nerd Font */
-font-size: 13px; /* Tamanho da fonte */
+background-color: rgba(18, 18, 20, 0.92); /* Fundo quase preto com leve transparência */
+border-bottom: 2px solid rgba(60, 60, 70, 0.85); /* Borda inferior sutil e escura */
+color: #d0d0d0; /* Cinza claro mais suave para os textos */
+font-family: "JetBrains Mono Nerd Font", monospace; /* Fonte nerd moderna e legível */
+font-size: 14px;
+user-select: none; /* Evita seleção acidental de texto na barra */
+transition: background-color 0.3s ease;
 }
 
 /* Espaçamento e padding dos módulos */
 #waybar > .modules-left > .module,
 #waybar > .modules-center > .module,
 #waybar > .modules-right > .module {
-padding: 0 10px; /* Espaçamento interno horizontal dos módulos */
-margin: 0 2px;   /* Pequeno espaçamento entre os módulos */
+padding: 0 14px; /* Padding mais confortável */
+margin: 0 4px;   /* Espaço entre módulos levemente aumentado */
+transition: color 0.2s ease;
+cursor: default;
 }
 
 /* ---------------------------------- */
@@ -28,92 +32,144 @@ margin: 0 2px;   /* Pequeno espaçamento entre os módulos */
 #cpu,
 #memory,
 #custom-gpu {
-background-color: transparent; /* Fundo transparente */
-color: #92b0fa; /* Azul sutil para as informações de sistema */
+background-color: transparent;
+color: #89b4fa; /* Azul neon suave, destaque elegante */
+font-weight: 600;
+letter-spacing: 0.03em;
 }
 
 /* Workspaces (Módulo Central) */
 #workspaces button {
-padding: 0 5px; /* Espaçamento entre os números das workspaces */
-background-color: transparent; /* Fundo transparente */
-color: #e0e0e0; /* Cor do texto padrão para workspaces não focadas */
+padding: 0 8px;
+background-color: transparent;
+color: #c8c8c8;
 border: none;
-border-bottom: 2px solid transparent; /* Borda inferior transparente */
-transition: all 0.2s ease-in-out; /* Transição suave para hover/foco */
+border-bottom: 2px solid transparent;
+border-radius: 4px 4px 0 0;
+transition: all 0.25s ease-in-out;
+font-weight: 500;
+text-transform: uppercase;
+letter-spacing: 0.06em;
+cursor: pointer;
+user-select: none;
 }
 
 #workspaces button:hover {
-background-color: rgba(70, 70, 70, 0.3); /* Fundo sutil ao passar o mouse */
-border-bottom: 2px solid #555555; /* Borda inferior mais visível no hover */
+background-color: rgba(75, 75, 85, 0.35);
+border-bottom: 2px solid #6c71c4; /* Roxo azulado vibrante */
+color: #a0a0ff;
 }
 
-/* Workspace Atual (Contraste Dinâmico) */
+/* Workspace Atual */
 #workspaces button.focused {
-color: #8be9fd; /* Cor vibrante para o contraste (azul ciano) */
-background-color: rgba(30, 30, 30, 0.7); /* Fundo levemente mais escuro */
-border-bottom: 2px solid #8be9fd; /* Borda inferior vibrante */
-font-weight: bold; /* Deixa o texto em negrito */
+color: #8be9fd;
+background-color: rgba(30, 30, 40, 0.85);
+border-bottom: 3px solid #8be9fd;
+font-weight: 700;
+box-shadow: 0 0 8px #8be9fdaa;
 }
 
-/* Workspaces Ocupadas (visíveis mas não focadas) */
+/* Workspaces Visíveis (não focadas) */
 #workspaces button.visible {
-color: #b3b3b3; /* Um pouco mais claro que as vazias */
+color: #b0b0d0;
 }
 
-/* Workspaces Vazias (se estiverem sendo mostradas) */
+/* Workspaces Vazias */
 #workspaces button.empty {
-color: #666666; /* Cor mais escura para workspaces vazias */
+color: #555555;
 }
 
 /* Workspaces com Notificação Urgente */
 #workspaces button.urgent {
-color: #ff5555; /* Vermelho vibrante para urgência */
-background-color: rgba(60, 0, 0, 0.7); /* Fundo vermelho escuro */
-border-bottom: 2px solid #ff5555; /* Borda vermelha */
-font-weight: bold;
+color: #ff6e6e;
+background-color: rgba(75, 0, 0, 0.85);
+border-bottom: 3px solid #ff6e6e;
+font-weight: 700;
+box-shadow: 0 0 10px #ff6e6eaa;
 }
 
-/* Network (Wi-Fi) */
+/* Network (Wi-Fi / Ethernet) */
 #network {
 background-color: transparent;
-color: #a7fca2; /* Verde suave para rede */
+color: #a7fca2; /* Verde suave */
+font-weight: 600;
 }
 
 #network.disconnected {
-color: #ff5555; /* Vermelho para desconectado */
+color: #ff6e6e; /* Vermelho para desconectado */
+font-weight: 700;
 }
 
 /* Pulseaudio (Volume) */
 #pulseaudio {
 background-color: transparent;
-color: #f1fa8c; /* Amarelo/verde limão para volume */
+color: #f1fa8c; /* Amarelo neon */
+font-weight: 600;
+cursor: pointer;
+transition: color 0.3s ease;
+}
+
+#pulseaudio:hover {
+color: #ffffaa;
 }
 
 #pulseaudio.muted {
-color: #ff7777; /* Vermelho suave para mute */
+color: #ff7f7f;
 }
 
 /* Custom Power (Botão de Desligar) */
 #custom-power {
-background-color: #333333; /* Fundo levemente mais escuro para o botão */
-color: #ff7f7f; /* Vermelho sutil para o ícone de poder */
-padding: 0 12px; /* Mais padding para o botão */
-border-radius: 5px; /* Bordas levemente arredondadas */
-margin-left: 10px; /* Mais espaço à esquerda do botão */
-transition: background-color 0.2s ease-in-out;
+background-color: #222222;
+color: #ff7f7f;
+padding: 0 16px;
+border-radius: 6px;
+margin-left: 14px;
+transition: background-color 0.25s ease, color 0.25s ease;
+cursor: pointer;
+user-select: none;
+font-weight: 700;
+box-shadow: 0 0 4px #ff7f7f88;
 }
 
 #custom-power:hover {
-background-color: #555555; /* Fundo mais claro ao passar o mouse */
-color: #ffffff; /* Cor do ícone mais clara no hover */
+background-color: #444444;
+color: #ffb0b0;
+box-shadow: 0 0 12px #ffb0b0dd;
 }
 
 /* Tooltip (balões de informação) */
 #tooltip {
-background-color: rgba(0, 0, 0, 0.8); /* Fundo escuro com transparência */
-border: 1px solid #444444; /* Borda fina */
-border-radius: 5px;
-padding: 8px 12px;
-color: #e0e0e0;
-font-size: 12px;
+background-color: rgba(20, 20, 20, 0.95);
+border: 1px solid #555555;
+border-radius: 6px;
+padding: 10px 14px;
+color: #d0d0d0;
+font-size: 12.5px;
+box-shadow: 0 0 15px #000000bb;
+max-width: 280px;
+word-wrap: break-word;
+user-select: none;
+pointer-events: none;
+transition: opacity 0.3s ease;
+}
+
+/* Scrollbar nas tooltips, se necessário */
+#tooltip::-webkit-scrollbar {
+width: 6px;
+height: 6px;
+}
+
+#tooltip::-webkit-scrollbar-thumb {
+background-color: #666666aa;
+border-radius: 3px;
+}
+
+/* Efeito sutil ao passar mouse nos módulos da esquerda */
+#cpu:hover,
+#memory:hover,
+#custom-gpu:hover {
+color: #a3baff;
+text-shadow: 0 0 6px #a3baffaa;
+cursor: default;
+transition: color 0.3s ease;
 }
