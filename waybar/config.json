@@ -3,7 +3,7 @@
     "css": "~/.config/waybar/style.css",
     "layer": "top", // A Waybar fica na parte superior
     "position": "top", // Posição no topo da tela
-    ""modules-left": [
+    "modules-left": [
         "cpu",
         "memory",
         "custom/gpu" // Módulo customizado para GPU
