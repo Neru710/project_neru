@@ -154,6 +154,16 @@ else
     log_message "Aviso: Script power-menu.sh não encontrado em $POWER_MENU_SCRIPT após a cópia. Certifique-se de que ele está no seu repositório dotfiles."
 fi
 
+# Garante permissão de execução para o script screenshot.sh após a cópia
+SCREENSHOT_SCRIPT="$HOME/.config/sway/scripts/screenshot.sh"
+if [ -f "$SCREENSHOT_SCRIPT" ]; then
+    log_message "Dando permissão de execução para o script screenshot.sh..."
+    chmod +x "$SCREENSHOT_SCRIPT" || error_exit "Falha ao dar permissão de execução para screenshot.sh."
+    log_message "Permissão de execução concedida para screenshot.sh."
+else
+    log_message "Aviso: Script screenshot.sh não encontrado em $SCREENSHOT_SCRIPT após a cópia. Certifique-se de que ele está no seu repositório dotfiles."
+fi
+
 
 # 9. Habilitar o SDDM
 log_message "Habilitando o serviço SDDM para iniciar com o sistema..."

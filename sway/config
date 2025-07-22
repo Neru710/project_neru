@@ -1,4 +1,12 @@
 #-------------------------------
+#   Carregar Wallpaper Defalt
+#-------------------------------
+
+#-------------------------------
+#           imports
+#-------------------------------
+
+#-------------------------------
 #       Layout do teclado
 #-------------------------------
 input * xkb_layout br
@@ -40,6 +48,9 @@ bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
 #           Specials
 #--------------------------------
 bindsym $mod+F fullscreen
+
+#tirar print
+bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh
 
 #--------------------------------
 #     Mudar Foco Das Janelas
@@ -104,4 +115,3 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #--------------------------------
 bindsym $mod+button1 floating_bindsym $mod+button1 move
 bindsym $mod+button2 floating_bindsym $mod+button2 resize
-
