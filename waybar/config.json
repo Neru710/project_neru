@@ -2,6 +2,7 @@
     "css": "~/.config/waybar/style.css",
     "layer": "top",
     "position": "top",
+
     "modules-left": [
         "cpu",
         "memory",
@@ -15,23 +16,27 @@
         "pulseaudio",
         "custom/power"
     ],
+
     "cpu": {
         "format": "CPU: {usage}%",
         "tooltip": true,
         "interval": 10
     },
+
     "memory": {
         "format": "RAM: {}%",
         "tooltip": true,
         "interval": 10
     },
+
     "custom/gpu": {
-        "format": "GPU: {usage}%",
+        "format": "GPU: N/A%",
         "tooltip": true,
-        "exec": "echo 'GPU: N/A%'",
+        "exec": "echo '{\"text\": \"GPU: N/A%\"}'",
         "interval": 5,
         "return-type": "json"
     },
+
     "sway/workspaces": {
         "format": "{name}",
         "format-current": "<b><u>{name}</u></b>",
@@ -41,14 +46,13 @@
         "all-outputs": true,
         "persistent_workspaces": {}
     },
+
     "network": {
-        "format-wifi": " {essid} ({signal}%)",
-        "format-ethernet": " Conectado",
-        "format-disconnected": "⚠ Desconectado",
-        "tooltip-format-wifi": "Wi-Fi: {essid} ({signal}%)",
-        "tooltip-format-ethernet": "Cabo conectado",
-        "interval": 5
+        "interface": "wlan0", // Altere para sua interface real (ex: enp3s0, wlan1, etc)
+        "format": "  Connected",
+        "tooltip": false
     },
+
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-muted": " mute",
@@ -58,6 +62,7 @@
         "tooltip": true,
         "on-click": "pavucontrol"
     },
+
     "custom/power": {
         "format": "⏻",
         "tooltip": "Opções de Energia",

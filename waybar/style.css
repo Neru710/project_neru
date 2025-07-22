@@ -1,175 +1,76 @@
-/*
- * Waybar Style.css - Tema Moderno / Underground Turbinado
- * Cores escuras, minimalismo elegante com toque neon
- */
-
-/* Estilo geral da Waybar */
-#waybar {
-background-color: rgba(18, 18, 20, 0.92); /* Fundo quase preto com leve transparência */
-border-bottom: 2px solid rgba(60, 60, 70, 0.85); /* Borda inferior sutil e escura */
-color: #d0d0d0; /* Cinza claro mais suave para os textos */
-font-family: "JetBrains Mono Nerd Font", monospace; /* Fonte nerd moderna e legível */
-font-size: 14px;
-user-select: none; /* Evita seleção acidental de texto na barra */
-transition: background-color 0.3s ease;
+/* ───────────── BASE ───────────── */
+* {
+    border: none;
+    border-radius: 0;
+    font-family: "FiraCode Nerd Font", monospace;
+    font-size: 12px;
+    min-height: 0;
+    padding: 0 10px;
 }
 
-/* Espaçamento e padding dos módulos */
-#waybar > .modules-left > .module,
-#waybar > .modules-center > .module,
-#waybar > .modules-right > .module {
-padding: 0 14px; /* Padding mais confortável */
-margin: 0 4px;   /* Espaço entre módulos levemente aumentado */
-transition: color 0.2s ease;
-cursor: default;
+window#waybar {
+    background: #000000; /* preto raiz */
+    color: #cccccc;      /* cinza brabo */
+    border-bottom: 2px solid #ff0000; /* linha vermelha boladona */
 }
 
-/* ---------------------------------- */
-/* Estilos dos Módulos Individuais */
-/* ---------------------------------- */
+/* ──────────── WORKSPACES ──────────── */
+#workspaces button {
+background: transparent;
+color: #777777;
+border: none;
+}
 
-/* CPU, Memória, GPU (Módulos da Esquerda) */
+#workspaces button.focused {
+color: #ffffff;
+border-bottom: 2px solid #ff0000;
+font-weight: bold;
+}
+
+#workspaces button.urgent {
+color: #ff0000;
+font-weight: bold;
+}
+
+#workspaces button.empty {
+color: #444444;
+}
+
+/* ──────────── MÓDULOS ──────────── */
 #cpu,
 #memory,
-#custom-gpu {
-background-color: transparent;
-color: #89b4fa; /* Azul neon suave, destaque elegante */
-font-weight: 600;
-letter-spacing: 0.03em;
-}
-
-/* Workspaces (Módulo Central) */
-#workspaces button {
-padding: 0 8px;
-background-color: transparent;
-color: #c8c8c8;
-border: none;
-border-bottom: 2px solid transparent;
-border-radius: 4px 4px 0 0;
-transition: all 0.25s ease-in-out;
-font-weight: 500;
-text-transform: uppercase;
-letter-spacing: 0.06em;
-cursor: pointer;
-user-select: none;
-}
-
-#workspaces button:hover {
-background-color: rgba(75, 75, 85, 0.35);
-border-bottom: 2px solid #6c71c4; /* Roxo azulado vibrante */
-color: #a0a0ff;
-}
-
-/* Workspace Atual */
-#workspaces button.focused {
-color: #8be9fd;
-background-color: rgba(30, 30, 40, 0.85);
-border-bottom: 3px solid #8be9fd;
-font-weight: 700;
-box-shadow: 0 0 8px #8be9fdaa;
-}
-
-/* Workspaces Visíveis (não focadas) */
-#workspaces button.visible {
-color: #b0b0d0;
-}
-
-/* Workspaces Vazias */
-#workspaces button.empty {
-color: #555555;
-}
-
-/* Workspaces com Notificação Urgente */
-#workspaces button.urgent {
-color: #ff6e6e;
-background-color: rgba(75, 0, 0, 0.85);
-border-bottom: 3px solid #ff6e6e;
-font-weight: 700;
-box-shadow: 0 0 10px #ff6e6eaa;
-}
-
-/* Network (Wi-Fi / Ethernet) */
-#network {
-background-color: transparent;
-color: #a7fca2; /* Verde suave */
-font-weight: 600;
-}
-
-#network.disconnected {
-color: #ff6e6e; /* Vermelho para desconectado */
-font-weight: 700;
-}
-
-/* Pulseaudio (Volume) */
-#pulseaudio {
-background-color: transparent;
-color: #f1fa8c; /* Amarelo neon */
-font-weight: 600;
-cursor: pointer;
-transition: color 0.3s ease;
-}
-
-#pulseaudio:hover {
-color: #ffffaa;
-}
-
-#pulseaudio.muted {
-color: #ff7f7f;
-}
-
-/* Custom Power (Botão de Desligar) */
+#custom-gpu,
+#network,
+#pulseaudio,
 #custom-power {
-background-color: #222222;
-color: #ff7f7f;
-padding: 0 16px;
+padding: 0 8px;
+margin: 0 4px;
+background: #111111;
 border-radius: 6px;
-margin-left: 14px;
-transition: background-color 0.25s ease, color 0.25s ease;
-cursor: pointer;
-user-select: none;
-font-weight: 700;
-box-shadow: 0 0 4px #ff7f7f88;
+color: #dddddd;
 }
 
-#custom-power:hover {
-background-color: #444444;
-color: #ffb0b0;
-box-shadow: 0 0 12px #ffb0b0dd;
+/* Detalhes */
+#cpu { color: #ff4c4c; }
+#memory { color: #ffa500; }
+#custom-gpu { color: #8be9fd; }
+#network { color: #50fa7b; }
+#pulseaudio { color: #bd93f9; }
+#custom-power {
+background: #ff0000;
+color: #ffffff;
+font-weight: bold;
+padding: 0 10px;
 }
 
-/* Tooltip (balões de informação) */
-#tooltip {
-background-color: rgba(20, 20, 20, 0.95);
-border: 1px solid #555555;
-border-radius: 6px;
-padding: 10px 14px;
-color: #d0d0d0;
-font-size: 12.5px;
-box-shadow: 0 0 15px #000000bb;
-max-width: 280px;
-word-wrap: break-word;
-user-select: none;
-pointer-events: none;
-transition: opacity 0.3s ease;
-}
-
-/* Scrollbar nas tooltips, se necessário */
-#tooltip::-webkit-scrollbar {
-width: 6px;
-height: 6px;
-}
-
-#tooltip::-webkit-scrollbar-thumb {
-background-color: #666666aa;
-border-radius: 3px;
-}
-
-/* Efeito sutil ao passar mouse nos módulos da esquerda */
+/* Hover de botão (opcional) */
+#workspaces button:hover,
 #cpu:hover,
 #memory:hover,
-#custom-gpu:hover {
-color: #a3baff;
-text-shadow: 0 0 6px #a3baffaa;
-cursor: default;
-transition: color 0.3s ease;
+#custom-gpu:hover,
+#network:hover,
+#pulseaudio:hover,
+#custom-power:hover {
+background: #222222;
+transition: background 0.3s ease;
 }
