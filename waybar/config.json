@@ -1,12 +1,11 @@
 {
-    // Configuração geral da Waybar
     "css": "~/.config/waybar/style.css",
-    "layer": "top", // A Waybar fica na parte superior
-    "position": "top", // Posição no topo da tela
+    "layer": "top",
+    "position": "top",
     "modules-left": [
         "cpu",
         "memory",
-        "custom/gpu" // Módulo customizado para GPU
+        "custom/gpu"
     ],
     "modules-center": [
         "sway/workspaces"
@@ -14,10 +13,8 @@
     "modules-right": [
         "network",
         "pulseaudio",
-        "custom/power" // Módulo customizado para o menu de desligar
+        "custom/power"
     ],
-
-    // --- Módulos da Esquerda (CPU, RAM, GPU) ---
     "cpu": {
         "format": "CPU: {usage}%",
         "tooltip": true,
@@ -28,60 +25,43 @@
         "tooltip": true,
         "interval": 10
     },
-    // Módulo customizado para GPU (requer um script ou ferramenta externa)
-    // Exemplo: Se você tiver uma GPU NVIDIA e 'nvtop' ou 'nvidia-smi' instalado.
-    // Para AMD/Intel, pode ser mais complexo ou usar 'radeontop'/'intel_gpu_top'.
-    // Vou deixar um placeholder. Você pode precisar de um script customizado para isso.
     "custom/gpu": {
-        "format": "GPU: {usage}%", // Placeholder, o script real preencherá isso
+        "format": "GPU: {usage}%",
         "tooltip": true,
-        "exec": "echo 'GPU: N/A%'", // Comando padrão, substitua por um script real
+        "exec": "echo 'GPU: N/A%'",
         "interval": 5,
-        "return-type": "json" // Se o script retornar JSON, caso contrário, use "text"
-        // Exemplo de comando mais real (requer um script que retorne o uso da GPU)
-        // "exec": "~/.config/waybar/scripts/gpu-usage.sh"
+        "return-type": "json"
     },
-
-    // --- Módulo do Meio (Workspaces) ---
     "sway/workspaces": {
         "format": "{name}",
-        "format-current": "<b><u>{name}</u></b>", // Workspace atual em negrito e sublinhado para contraste
-        "format-visible": "{name}", // Workspaces visíveis (mas não focadas)
-        "format-urgent": "<span foreground='#ff0000'><b>{name}</b></span>", // Workspace com notificação urgente
-        "format-empty": "<span foreground='#888888'>{name}</span>", // Workspaces vazias (opcional, se quiser mostrá-las)
-        "all-outputs": true, // Mostra workspaces de todos os monitores
-        "persistent_workspaces": {
-             // Exemplo: Workspaces persistentes em monitores específicos
-             // "1": ["DP-1"],
-             // "2": ["DP-1"],
-             // "3": ["HDMI-A-1"],
-             // "4": ["HDMI-A-1"]
-        }
+        "format-current": "<b><u>{name}</u></b>",
+        "format-visible": "{name}",
+        "format-urgent": "<span foreground='#ff0000'><b>{name}</b></span>",
+        "format-empty": "<span foreground='#888888'>{name}</span>",
+        "all-outputs": true,
+        "persistent_workspaces": {}
     },
-
-    // --- Módulos da Direita (Wi-Fi, Volume, Desligar) ---
     "network": {
-        "format-wifi": " {essid} ({signal}%)", // Ícone de Wi-Fi, nome da rede e sinal
-        "format-ethernet": " {ifname}", // Ícone de Ethernet
-        "format-disconnected": "⚠ Desconectado", // Ícone de desconectado
-        "tooltip-format": "{ifname} ({macaddr})\n{ipaddr}/{cidr} {gwaddr}",
-        "tooltip-format-wifi": "{essid} ({signal}%)",
-        "tooltip-format-ethernet": "{ifname} {ipaddr}/{cidr}",
+        "format-wifi": " {essid} ({signal}%)",
+        "format-ethernet": " Conectado",
+        "format-disconnected": "⚠ Desconectado",
+        "tooltip-format-wifi": "Wi-Fi: {essid} ({signal}%)",
+        "tooltip-format-ethernet": "Cabo conectado",
         "interval": 5
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-muted": " mute",
         "format-icons": {
-            "default": ["", ""] // Ícones para volume baixo/alto
+            "default": ["", ""]
         },
         "tooltip": true,
-        "on-click": "pavucontrol" // Abre o Pavucontrol ao clicar
+        "on-click": "pavucontrol"
     },
     "custom/power": {
-        "format": "⏻", // Ícone de desligar (Unicode)
+        "format": "⏻",
         "tooltip": "Opções de Energia",
-        "on-click": "~/.config/waybar/scripts/power-menu.sh", // Executa o script ao clicar
-        "interval": 999999 // Não precisa de atualização constante
+        "on-click": "~/.config/waybar/scripts/power-menu.sh",
+        "interval": 999999
     }
 }
