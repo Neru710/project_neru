@@ -13,9 +13,10 @@ Um setup leve, funcional e 100% open source para Sway no Arch Linux. Feito pra s
 ## Como usar:
 
 ```bash
-git clone https://github.com/seuusuario/project_neru.git
+git clone https://github.com/Wagner0070/project_neru.git
 cd project_neru
-cp -r .config ~/
+chmod +x installer.sh
+./installer.sh
 ```
 
 ## Licença
