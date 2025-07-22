@@ -29,7 +29,7 @@ set $mod Mod4
 #--------------------------------
 bindsym $mod+Return exec kitty
 bindsym $mod+T exec kitty
-bindsym $mod+E exec dolphin
+bindsym $mod+E exec thunar
 bindsym $mod+B exec firefox
 bindsym $mod+A exec wofi --show drun
 bindsym $mod+Q kill

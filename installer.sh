@@ -55,9 +55,13 @@ PACKAGES=(
     pavucontrol
     mako
     sddm
-    dolphin
+    thunar
     wofi
     kitty
+    lxappearance
+    qt5ct
+    qt6ct
+    kvantum-qt5
     git # Garante que o git esteja instalado para clonar o repositório e o yay
     noto-fonts-emoji # Boa para complementar com símbolos e emojis em fontes
     base-devel # Essencial para compilar pacotes do AUR (como o yay)
@@ -79,6 +83,27 @@ if ! command_exists "yay"; then
 else
     log_message "Yay já está instalado. Pulando instalação."
 fi
+
+# 4-2. Instalar os temas para gtk e o qt5 e 6
+install_theme() {
+    local THEME_PACKAGE="$1"
+    log_message "Instalando o tema ($THEME_PACKAGE) usando yay..."
+    yay -S --noconfirm --needed "$THEME_PACKAGE" || error_exit "Falha ao instalar o tema ($THEME_PACKAGE)."
+    log_message "Tema ($THEME_PACKAGE) instalado com sucesso."
+}
+
+THEMES=(
+    "catppuccin-gtk-theme"
+    "dracula-gtk-theme"
+    "nordic-theme"
+    "materia-gtk-theme"
+    "arc-gtk-theme"
+    "papirus-icon-theme"
+)
+
+for theme in "${THEMES[@]}"; do
+    install_theme "$theme"
+done
 
 # 5. Instalar Nerd Font específica usando yay
 # ttf-firacode-nerd é a Fira Code com os glyphs da Nerd Font, que é muito popular.
