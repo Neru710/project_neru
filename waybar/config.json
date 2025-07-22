@@ -1,72 +1,91 @@
 {
+    // Define o caminho para o novo arquivo CSS
     "css": "~/.config/waybar/style.css",
     "layer": "top",
     "position": "top",
+    "height": 30, // Altura sugerida para um visual mais equilibrado
 
+    // Módulos à esquerda: CPU, Temperatura, RAM
     "modules-left": [
         "cpu",
-        "memory",
-        "custom/gpu"
+        "temperature",
+        "memory"
     ],
+
+    // Módulos no centro: Workspaces do Sway
     "modules-center": [
         "sway/workspaces"
     ],
+
+    // Módulos à direita: Rede, Áudio, Relógio, Botão de Power
     "modules-right": [
         "network",
         "pulseaudio",
+        "clock",
         "custom/power"
     ],
 
+    // --- CONFIGURAÇÃO DOS MÓDULOS ---
+
+    "sway/workspaces": {
+        "disable-scroll": true,
+        "all-outputs": true,
+        "persistent_workspaces": {
+            "1": [], "2": [], "3": [], "4": [], "5": [] // Exemplo: mantenha 5 workspaces sempre visíveis
+        }
+    },
+
     "cpu": {
-        "format": "CPU: {usage}%",
+        "format": " {usage}%", // Ícone de CPU
         "tooltip": true,
-        "interval": 10
+        "interval": 2
+    },
+
+    "temperature": {
+        // !!! ATENÇÃO: Verifique sua zona térmica com 'ls /sys/class/thermal/'
+        // !!! e troque 'thermal-zone: 0' se necessário.
+        "thermal-zone": 0,
+        "format": " {temperatureC}°C", // Ícone de termômetro
+        "critical-threshold": 80,
+        "format-critical": " {temperatureC}°C", // Ícone de termômetro quente
+        "interval": 5
     },
 
     "memory": {
-        "format": "RAM: {}%",
+        "format": " {}%", // Ícone de memória RAM
         "tooltip": true,
-        "interval": 10
-    },
-
-    "custom/gpu": {
-        "format": "GPU: N/A%",
-        "tooltip": true,
-        "exec": "echo '{\"text\": \"GPU: N/A%\"}'",
-        "interval": 5,
-        "return-type": "json"
-    },
-
-    "sway/workspaces": {
-        "format": "{name}",
-        "format-current": "<b><u>{name}</u></b>",
-        "format-visible": "{name}",
-        "format-urgent": "<span foreground='#ff0000'><b>{name}</b></span>",
-        "format-empty": "<span foreground='#888888'>{name}</span>",
-        "all-outputs": true,
-        "persistent_workspaces": {}
+        "interval": 5
     },
 
     "network": {
-        "interface": "wlan0", // Altere para sua interface real (ex: enp3s0, wlan1, etc)
-        "format": "  Connected",
-        "tooltip": false
+        // !!! ATENÇÃO: Troque "wlan0" pela sua interface de rede (ver com 'ip a')
+        "interface": "wlan0",
+        "format-wifi": "{essid} ({signalStrength}%) ", // Ícone de Wi-Fi
+        "format-ethernet": "{ifname} ",
+        "format-disconnected": "Desconectado ", // Ícone de aviso
+        "tooltip-format": "{ifname} via {gwaddr} ",
+        "on-click": "nm-connection-editor", // Abre o editor de conexões de rede
+        "interval": 5
     },
 
     "pulseaudio": {
         "format": "{icon} {volume}%",
-        "format-muted": " mute",
+        "format-muted": " Mudo", // Ícone de mudo
         "format-icons": {
             "default": ["", ""]
         },
-        "tooltip": true,
         "on-click": "pavucontrol"
     },
 
+    "clock": {
+        "format": "{:%H:%M   %d/%m/%Y }", // Formato: Hora:Minuto (Ícone) Dia/Mês/Ano (Ícone)
+        "tooltip-format": "<big>{:%A, %d de %B de %Y}</big>",
+        "interval": 1
+    },
+
     "custom/power": {
-        "format": "⏻",
-        "tooltip": "Opções de Energia",
-        "on-click": "~/.config/waybar/scripts/power-menu.sh",
-        "interval": 999999
+        "format": "", // Ícone de power
+        "tooltip": false,
+        "on-click": "wlogout" // Sugestão: usar um menu de saída como 'wlogout'
     }
 }

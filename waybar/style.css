@@ -1,76 +1,142 @@
-/* ───────────── BASE ───────────── */
+/* --- Catppuccin Mocha Theme --- */
+@define-color rosewater #f5e0dc;
+@define-color flamingo #f2cdcd;
+@define-color pink #f5c2e7;
+@define-color mauve #cba6f7;
+@define-color red #f38ba8;
+@define-color maroon #eba0ac;
+@define-color peach #fab387;
+@define-color yellow #f9e2af;
+@define-color green #a6e3a1;
+@define-color teal #94e2d5;
+@define-color sky #89dceb;
+@define-color sapphire #74c7ec;
+@define-color blue #89b4fa;
+@define-color lavender #b4befe;
+@define-color text #cdd6f4;
+@define-color subtext1 #bac2de;
+@define-color subtext0 #a6adc8;
+@define-color overlay2 #9399b2;
+@define-color overlay1 #7f849c;
+@define-color overlay0 #6c7086;
+@define-color surface2 #585b70;
+@define-color surface1 #45475a;
+@define-color surface0 #313244;
+@define-color base #1e1e2e;
+@define-color mantle #181825;
+@define-color crust #11111b;
+
+/* --- Base --- */
 * {
     border: none;
     border-radius: 0;
     font-family: "FiraCode Nerd Font", monospace;
-    font-size: 12px;
+    font-size: 13px;
     min-height: 0;
-    padding: 0 10px;
 }
 
+/* --- Barra Principal --- */
 window#waybar {
-    background: #000000; /* preto raiz */
-    color: #cccccc;      /* cinza brabo */
-    border-bottom: 2px solid #ff0000; /* linha vermelha boladona */
+    background: rgba(24, 24, 37, 0.85); /* Fundo base semi-transparente */
+    color: @text;
+    border-radius: 12px; /* Bordas arredondadas para o efeito flutuante */
+    margin: 5px; /* Margem para o efeito flutuante */
 }
 
-/* ──────────── WORKSPACES ──────────── */
+/* --- Estilo Geral dos Módulos --- */
+#workspaces,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#clock,
+#custom-power {
+background-color: @surface0;
+padding: 2px 12px;
+margin: 4px 0px;
+border-radius: 8px;
+}
+
+/* Espaçamento entre módulos */
+#modules-left > *,
+#modules-right > * {
+margin-left: 5px;
+margin-right: 5px;
+}
+#modules-left > *:first-child { margin-left: 10px; }
+#modules-right > *:last-child { margin-right: 10px; }
+
+
+/* --- Workspaces --- */
+#workspaces {
+background-color: @surface0;
+border-radius: 8px;
+padding: 0 5px;
+margin: 4px;
+}
+
 #workspaces button {
-background: transparent;
-color: #777777;
-border: none;
+color: @overlay1;
+padding: 2px 5px;
+background-color: transparent;
+transition: all 0.2s ease-in-out;
+}
+
+#workspaces button:hover {
+color: @text;
+background-color: @surface1;
+border-radius: 6px;
 }
 
 #workspaces button.focused {
-color: #ffffff;
-border-bottom: 2px solid #ff0000;
+color: @crust;
+background-color: @mauve; /* Destaque roxo para o workspace focado */
+border-radius: 6px;
 font-weight: bold;
 }
 
 #workspaces button.urgent {
-color: #ff0000;
-font-weight: bold;
-}
-
-#workspaces button.empty {
-color: #444444;
-}
-
-/* ──────────── MÓDULOS ──────────── */
-#cpu,
-#memory,
-#custom-gpu,
-#network,
-#pulseaudio,
-#custom-power {
-padding: 0 8px;
-margin: 0 4px;
-background: #111111;
+color: @crust;
+background-color: @red; /* Destaque vermelho para janelas urgentes */
 border-radius: 6px;
-color: #dddddd;
-}
-
-/* Detalhes */
-#cpu { color: #ff4c4c; }
-#memory { color: #ffa500; }
-#custom-gpu { color: #8be9fd; }
-#network { color: #50fa7b; }
-#pulseaudio { color: #bd93f9; }
-#custom-power {
-background: #ff0000;
-color: #ffffff;
 font-weight: bold;
-padding: 0 10px;
 }
 
-/* Hover de botão (opcional) */
-#workspaces button:hover,
-#cpu:hover,
-#memory:hover,
-#custom-gpu:hover,
-#network:hover,
-#pulseaudio:hover,
-#custom-power:hover {
-background: #222222;
-transition: background 0.3s ease;
+#workspaces button.persistent {
+color: @overlay0;
+}
+
+/* --- Módulos Individuais (Cores) --- */
+#cpu { color: @red; }
+#temperature { color: @peach; }
+#memory { color: @yellow; }
+#network { color: @green; }
+#pulseaudio { color: @pink; }
+#clock { color: @lavender; }
+
+#pulseaudio.muted {
+color: @surface2;
+}
+
+#temperature.critical {
+color: @red;
+}
+
+#custom-power {
+color: @crust;
+background-color: @red;
+margin-right: 10px;
+}
+
+/* --- Tooltips --- */
+tooltip {
+    background-color: @mantle;
+    border: 1px solid @surface1;
+    border-radius: 8px;
+}
+
+tooltip label {
+    color: @text;
+    padding: 5px;
 }
