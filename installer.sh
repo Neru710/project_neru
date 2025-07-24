@@ -79,6 +79,9 @@ PACKAGES=(
     mako
     sddm
     thunar
+    unzip
+    tar
+    unrar
     wofi
     kitty
     lxappearance
