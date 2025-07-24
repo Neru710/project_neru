@@ -95,6 +95,7 @@ PACKAGES=(
     xdg-user-dirs # Para criar os diretórios padrão do usuário
     xdg-desktop-portal # XDG Desktop Portal principal
     xdg-desktop-portal-wlr # Backend para Sway/Wayland
+    vlc # Adicionado VLC Media Player
 )
 
 log_message "Instalando pacotes necessários: ${PACKAGES[*]}..."
@@ -129,6 +130,7 @@ AUR_PACKAGES=(
     "papirus-icon-theme"
     "ttf-firacode-nerd" # Fira Code Nerd Font
     "wlogout" # Adicionado wlogout
+    "wdisplays" # Adicionado wdisplays para configuração gráfica de monitores no Wayland
 )
 
 for pkg in "${AUR_PACKAGES[@]}"; do
@@ -193,7 +195,51 @@ else
     log_message "SDDM já está habilitado. Pulando habilitação."
 fi
 
-# 10. Limpar o diretório temporário
+# 10. Configurar WAYLAND_DISPLAY em ~/.config/environment.d/
+log_message "Configurando WAYLAND_DISPLAY em ~/.config/environment.d/..."
+ENV_D_DIR="$HOME/.config/environment.d"
+WAYLAND_ENV_FILE="$ENV_D_DIR/wayland.conf"
+WAYLAND_DISPLAY_VALUE="${WAYLAND_DISPLAY:-wayland-0}" # Usa o valor atual ou 'wayland-0' como fallback
+
+mkdir -p "$ENV_D_DIR" || error_exit "Falha ao criar o diretório $ENV_D_DIR."
+
+# Verifica se a linha já existe no arquivo
+if grep -q "^WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE}$" "$WAYLAND_ENV_FILE" 2>/dev/null; then
+    log_message "A variável WAYLAND_DISPLAY já está configurada em $WAYLAND_ENV_FILE. Pulando adição."
+else
+    # Remove qualquer linha WAYLAND_DISPLAY= existente para evitar duplicatas ou conflitos
+    if grep -q "^WAYLAND_DISPLAY=" "$WAYLAND_ENV_FILE" 2>/dev/null; then
+        log_message "Encontrada uma configuração WAYLAND_DISPLAY existente. Removendo antes de adicionar a nova."
+        sed -i '/^WAYLAND_DISPLAY=/d' "$WAYLAND_ENV_FILE" || error_exit "Falha ao remover linha WAYLAND_DISPLAY existente em $WAYLAND_ENV_FILE."
+    fi
+
+    echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE}" >> "$WAYLAND_ENV_FILE" || error_exit "Falha ao adicionar WAYLAND_DISPLAY a $WAYLAND_ENV_FILE."
+    log_message "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE} adicionado a $WAYLAND_ENV_FILE com sucesso."
+fi
+
+
+# 11. Configurar QT_QPA_PLATFORMTHEME em /etc/environment
+# Este passo deve vir antes da limpeza e da recomendação de reinício
+log_message "Configurando QT_QPA_PLATFORMTHEME para qt5ct em /etc/environment..."
+ENV_VAR_LINE="QT_QPA_PLATFORMTHEME=qt5ct"
+GLOBAL_ENV_FILE="/etc/environment" # Renomeado para evitar conflito com ENV_FILE anterior
+
+# Verifica se a linha já existe no arquivo
+if grep -q "^${ENV_VAR_LINE}$" "$GLOBAL_ENV_FILE"; then
+    log_message "A variável '$ENV_VAR_LINE' já existe em $GLOBAL_ENV_FILE. Pulando adição."
+else
+    # Verifica se existe alguma linha começando com QT_QPA_PLATFORMTHEME e a remove para evitar duplicatas ou conflitos
+    if grep -q "^QT_QPA_PLATFORMTHEME=" "$GLOBAL_ENV_FILE"; then
+        log_message "Encontrada uma configuração QT_QPA_PLATFORMTHEME existente. Removendo antes de adicionar a nova."
+        sudo sed -i '/^QT_QPA_PLATFORMTHEME=/d' "$GLOBAL_ENV_FILE" || error_exit "Falha ao remover linha QT_QPA_PLATFORMTHEME existente em $GLOBAL_ENV_FILE."
+    fi
+
+    # Adiciona a nova linha ao final do arquivo
+    echo "$ENV_VAR_LINE" | sudo tee -a "$GLOBAL_ENV_FILE" > /dev/null || error_exit "Falha ao adicionar '$ENV_VAR_LINE' a $GLOBAL_ENV_FILE."
+    log_message "'$ENV_VAR_LINE' adicionado a $GLOBAL_ENV_FILE com sucesso."
+fi
+
+# 12. Limpar o diretório temporário
 log_message "Removendo diretório temporário: $INSTALL_DIR"
 rm -rf "$INSTALL_DIR" || log_message "Aviso: Não foi possível remover o diretório temporário $INSTALL_DIR."
 
