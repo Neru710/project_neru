@@ -1,6 +1,7 @@
 #-------------------------------
 #   Carregar Wallpaper Defalt
 #-------------------------------
+exec_always swaybg -i ~/.config/sway/wallpapers/guitar.jpg
 
 #-------------------------------
 #           imports
@@ -13,8 +14,9 @@ input * xkb_layout br
 input * xkb_variant abnt2
 
 #--------------------------------
-#    Barra de Status (Waybar)
+#           Auto Start
 #--------------------------------
+exec /usr/lib/xdg-desktop-portal-wlr
 exec_always waybar &
 
 #--------------------------------
