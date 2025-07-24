@@ -130,7 +130,6 @@ AUR_PACKAGES=(
     "papirus-icon-theme"
     "ttf-firacode-nerd" # Fira Code Nerd Font
     "wlogout" # Adicionado wlogout
-    "wdisplays" # Adicionado wdisplays para configuração gráfica de monitores no Wayland
 )
 
 for pkg in "${AUR_PACKAGES[@]}"; do
