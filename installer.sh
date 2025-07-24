@@ -30,7 +30,7 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Função para copiar e atualizar os dotfiles
+# Função para copiar e atualizar os dotfiles (diretórios)
 copy_dotfiles() {
     local source_dir="$1"
     local dest_dir="$2"
@@ -39,8 +39,6 @@ copy_dotfiles() {
     log_message "Copiando/Atualizando $item_name para $dest_dir..."
     if [ -d "$source_dir" ]; then
         # Remove o diretório de destino se ele já existir para garantir uma cópia limpa e completa
-        # Alternativamente, para mesclar, poderíamos usar rsync, mas para dotfiles completos, cp -r é mais simples.
-        # O rm -rf antes do cp -r garante que arquivos antigos ou excluídos no repo remoto sejam removidos localmente.
         if [ -d "$dest_dir" ]; then
             log_message "Removendo $dest_dir existente antes de copiar..."
             rm -rf "$dest_dir" || error_exit "Falha ao remover $dest_dir."
@@ -84,6 +82,7 @@ PACKAGES=(
     unrar
     wofi
     kitty
+    zsh # Garante que o zsh esteja instalado
     lxappearance
     qt5ct
     qt6ct
@@ -96,6 +95,7 @@ PACKAGES=(
     xdg-desktop-portal # XDG Desktop Portal principal
     xdg-desktop-portal-wlr # Backend para Sway/Wayland
     vlc # Adicionado VLC Media Player
+    curl # Necessário para baixar o script de instalação do Oh My Zsh
 )
 
 log_message "Instalando pacotes necessários: ${PACKAGES[*]}..."
@@ -113,7 +113,7 @@ else
     log_message "Yay já está instalado. Pulando instalação."
 fi
 
-# 4-2. Instalar os temas para gtk e o qt5 e 6
+# 4-2. Instalar os temas para gtk e o qt5 e 6 (pacotes AUR)
 install_aur_package() {
     local PACKAGE_NAME="$1"
     log_message "Instalando/Atualizando o pacote AUR ($PACKAGE_NAME) usando yay..."
@@ -136,6 +136,27 @@ for pkg in "${AUR_PACKAGES[@]}"; do
     install_aur_package "$pkg"
 done
 
+# 5. Instalar Oh My Zsh e configurar shell padrão
+log_message "Verificando e instalando Oh My Zsh..."
+if [ ! -d "$HOME/.oh-my-zsh" ]; then
+    # O --unattended evita prompts interativos e define o zsh como shell padrão
+    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended || error_exit "Falha ao instalar o Oh My Zsh."
+    log_message "Oh My Zsh instalado com sucesso."
+else
+    log_message "Oh My Zsh já está instalado. Pulando instalação."
+fi
+
+# Mudar o shell padrão para Zsh (se ainda não for)
+log_message "Definindo Zsh como shell padrão do usuário..."
+ZSH_PATH=$(which zsh)
+if [ "$SHELL" != "$ZSH_PATH" ]; then
+    chsh -s "$ZSH_PATH" || error_exit "Falha ao mudar o shell padrão para Zsh."
+    log_message "Shell padrão alterado para Zsh: $ZSH_PATH."
+else
+    log_message "Zsh já é o shell padrão. Pulando alteração."
+fi
+
+
 # 6. Clonar ou Atualizar o repositório de dotfiles
 log_message "Verificando/Atualizando o repositório de dotfiles: $DOTFILES_REPO..."
 
@@ -157,16 +178,56 @@ log_message "Verificando e criando diretórios padrão do usuário (Downloads, D
 xdg-user-dirs-update || log_message "Aviso: Falha ao criar/atualizar diretórios do usuário com xdg-user-dirs-update."
 log_message "Diretórios padrão do usuário verificados/criados."
 
-# 8. Copiar/Atualizar configurações de Sway e Waybar
-log_message "Copiando/Atualizando configurações de sway, waybar e wlogout para ~/.config/..."
+# 8. Copiar/Atualizar configurações de Sway, Waybar, wlogout e .zshrc
+log_message "Copiando/Atualizando configurações de sway, waybar, wlogout e .zshrc para ~/.config/ e $HOME/..."
 
 # Cria o diretório .config se não existir
 mkdir -p "$HOME/.config/" || error_exit "Não foi possível criar o diretório $HOME/.config/."
 
-# Usando a função copy_dotfiles para simplificar e garantir atualização
+# Usando a função copy_dotfiles para simplificar e garantir atualização (para diretórios)
 copy_dotfiles "$DOTFILES_LOCAL_PATH/sway" "$HOME/.config/sway" "sway"
 copy_dotfiles "$DOTFILES_LOCAL_PATH/waybar" "$HOME/.config/waybar" "waybar"
 copy_dotfiles "$DOTFILES_LOCAL_PATH/wlogout" "$HOME/.config/wlogout" "wlogout"
+
+# Copiar .zshrc do repositório de dotfiles para $HOME/
+log_message "Copiando/Atualizando .zshrc do repositório de dotfiles para $HOME/..."
+if [ -f "$DOTFILES_LOCAL_PATH/.zshrc" ]; then
+    cp -f "$DOTFILES_LOCAL_PATH/.zshrc" "$HOME/.zshrc" || error_exit "Falha ao copiar o arquivo .zshrc."
+    log_message ".zshrc copiado/atualizado para $HOME/."
+else
+    log_message "Aviso: Arquivo .zshrc não encontrado no repositório clonado ($DOTFILES_LOCAL_PATH/.zshrc). Pulando cópia."
+fi
+
+# Instalar plugins Zsh (clonar repositórios)
+log_message "Clonando plugins Zsh (zsh-autosuggestions, zsh-syntax-highlighting)..."
+ZSH_CUSTOM_PLUGINS="${ZSH_CUSTOM:-$HOME/.oh-my-zsh/custom}/plugins"
+mkdir -p "$ZSH_CUSTOM_PLUGINS" # Garante que o diretório exista
+
+if [ ! -d "$ZSH_CUSTOM_PLUGINS/zsh-autosuggestions" ]; then
+    git clone https://github.com/zsh-users/zsh-autosuggestions "$ZSH_CUSTOM_PLUGINS/zsh-autosuggestions" || log_message "Aviso: Falha ao clonar zsh-autosuggestions."
+else
+    log_message "zsh-autosuggestions já clonado. Pulando."
+fi
+
+if [ ! -d "$ZSH_CUSTOM_PLUGINS/zsh-syntax-highlighting" ]; then
+    git clone https://github.com/zsh-users/zsh-syntax-highlighting.git "$ZSH_CUSTOM_PLUGINS/zsh-syntax-highlighting" || log_message "Aviso: Falha ao clonar zsh-syntax-highlighting."
+else
+    log_message "zsh-syntax-highlighting já clonado. Pulando."
+fi
+log_message "Clonagem de plugins Zsh concluída."
+
+# Configurar plugins Zsh no ~/.zshrc (garante que os plugins estejam listados)
+log_message "Configurando plugins Zsh no ~/.zshrc..."
+if [ -f "$HOME/.zshrc" ]; then
+    # Garante que a linha 'plugins=(...)' exista e contenha os plugins desejados.
+    # Primeiro, remove qualquer linha 'plugins=(...)' existente.
+    sed -i '/^plugins=(/d' "$HOME/.zshrc"
+    # Em seguida, adiciona a linha com os plugins desejados no final do arquivo.
+    echo "plugins=(git zsh-autosuggestions zsh-syntax-highlighting)" >> "$HOME/.zshrc" || log_message "Aviso: Falha ao adicionar/atualizar a linha de plugins Zsh no ~/.zshrc. Verifique manualmente."
+    log_message "Plugins Zsh configurados com sucesso no ~/.zshrc."
+else
+    log_message "Aviso: ~/.zshrc não encontrado após cópia. Pule a configuração de plugins Zsh."
+fi
 
 # Garante permissão de execução para scripts específicos após a cópia
 SCRIPTS_TO_CHMOD=(
@@ -194,49 +255,38 @@ else
     log_message "SDDM já está habilitado. Pulando habilitação."
 fi
 
-# 10. Configurar WAYLAND_DISPLAY em ~/.config/environment.d/
-log_message "Configurando WAYLAND_DISPLAY em ~/.config/environment.d/..."
+# 10. Configurar WAYLAND_DISPLAY e XDG_CURRENT_DESKTOP em ~/.config/environment.d/
+log_message "Configurando variáveis de ambiente em ~/.config/environment.d/..."
 ENV_D_DIR="$HOME/.config/environment.d"
+mkdir -p "$ENV_D_DIR" || error_exit "Falha ao criar o diretório $ENV_D_DIR."
+
+# Configura WAYLAND_DISPLAY
 WAYLAND_ENV_FILE="$ENV_D_DIR/wayland.conf"
 WAYLAND_DISPLAY_VALUE="${WAYLAND_DISPLAY:-wayland-0}" # Usa o valor atual ou 'wayland-0' como fallback
 
-mkdir -p "$ENV_D_DIR" || error_exit "Falha ao criar o diretório $ENV_D_DIR."
+# Remove qualquer linha WAYLAND_DISPLAY= existente para evitar duplicatas ou conflitos
+sed -i '/^WAYLAND_DISPLAY=/d' "$WAYLAND_ENV_FILE" 2>/dev/null
+echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE}" >> "$WAYLAND_ENV_FILE" || error_exit "Falha ao adicionar WAYLAND_DISPLAY a $WAYLAND_ENV_FILE."
+log_message "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE} adicionado a $WAYLAND_ENV_FILE com sucesso."
 
-# Verifica se a linha já existe no arquivo
-if grep -q "^WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE}$" "$WAYLAND_ENV_FILE" 2>/dev/null; then
-    log_message "A variável WAYLAND_DISPLAY já está configurada em $WAYLAND_ENV_FILE. Pulando adição."
-else
-    # Remove qualquer linha WAYLAND_DISPLAY= existente para evitar duplicatas ou conflitos
-    if grep -q "^WAYLAND_DISPLAY=" "$WAYLAND_ENV_FILE" 2>/dev/null; then
-        log_message "Encontrada uma configuração WAYLAND_DISPLAY existente. Removendo antes de adicionar a nova."
-        sed -i '/^WAYLAND_DISPLAY=/d' "$WAYLAND_ENV_FILE" || error_exit "Falha ao remover linha WAYLAND_DISPLAY existente em $WAYLAND_ENV_FILE."
-    fi
-
-    echo "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE}" >> "$WAYLAND_ENV_FILE" || error_exit "Falha ao adicionar WAYLAND_DISPLAY a $WAYLAND_ENV_FILE."
-    log_message "WAYLAND_DISPLAY=${WAYLAND_DISPLAY_VALUE} adicionado a $WAYLAND_ENV_FILE com sucesso."
-fi
+# Configura XDG_CURRENT_DESKTOP
+DESKTOP_ENV_FILE="$ENV_D_DIR/desktop.conf"
+# Remove qualquer linha XDG_CURRENT_DESKTOP= existente
+sed -i '/^XDG_CURRENT_DESKTOP=/d' "$DESKTOP_ENV_FILE" 2>/dev/null
+echo "XDG_CURRENT_DESKTOP=sway" >> "$DESKTOP_ENV_FILE" || error_exit "Falha ao adicionar XDG_CURRENT_DESKTOP."
+log_message "XDG_CURRENT_DESKTOP=sway adicionado a $DESKTOP_ENV_FILE com sucesso."
 
 
 # 11. Configurar QT_QPA_PLATFORMTHEME em /etc/environment
-# Este passo deve vir antes da limpeza e da recomendação de reinício
 log_message "Configurando QT_QPA_PLATFORMTHEME para qt5ct em /etc/environment..."
 ENV_VAR_LINE="QT_QPA_PLATFORMTHEME=qt5ct"
-GLOBAL_ENV_FILE="/etc/environment" # Renomeado para evitar conflito com ENV_FILE anterior
+GLOBAL_ENV_FILE="/etc/environment"
 
-# Verifica se a linha já existe no arquivo
-if grep -q "^${ENV_VAR_LINE}$" "$GLOBAL_ENV_FILE"; then
-    log_message "A variável '$ENV_VAR_LINE' já existe em $GLOBAL_ENV_FILE. Pulando adição."
-else
-    # Verifica se existe alguma linha começando com QT_QPA_PLATFORMTHEME e a remove para evitar duplicatas ou conflitos
-    if grep -q "^QT_QPA_PLATFORMTHEME=" "$GLOBAL_ENV_FILE"; then
-        log_message "Encontrada uma configuração QT_QPA_PLATFORMTHEME existente. Removendo antes de adicionar a nova."
-        sudo sed -i '/^QT_QPA_PLATFORMTHEME=/d' "$GLOBAL_ENV_FILE" || error_exit "Falha ao remover linha QT_QPA_PLATFORMTHEME existente em $GLOBAL_ENV_FILE."
-    fi
-
-    # Adiciona a nova linha ao final do arquivo
-    echo "$ENV_VAR_LINE" | sudo tee -a "$GLOBAL_ENV_FILE" > /dev/null || error_exit "Falha ao adicionar '$ENV_VAR_LINE' a $GLOBAL_ENV_FILE."
-    log_message "'$ENV_VAR_LINE' adicionado a $GLOBAL_ENV_FILE com sucesso."
-fi
+# Verifica se existe alguma linha começando com QT_QPA_PLATFORMTHEME e a remove para evitar duplicatas ou conflitos
+sudo sed -i '/^QT_QPA_PLATFORMTHEME=/d' "$GLOBAL_ENV_FILE" 2>/dev/null
+# Adiciona a nova linha ao final do arquivo
+echo "$ENV_VAR_LINE" | sudo tee -a "$GLOBAL_ENV_FILE" > /dev/null || error_exit "Falha ao adicionar '$ENV_VAR_LINE' a $GLOBAL_ENV_FILE."
+log_message "'$ENV_VAR_LINE' adicionado a $GLOBAL_ENV_FILE com sucesso."
 
 # 12. Limpar o diretório temporário
 log_message "Removendo diretório temporário: $INSTALL_DIR"
@@ -250,10 +300,22 @@ echo "Instalação/Atualização Concluída!"
 echo "Os diretórios padrão do usuário foram criados/verificados."
 echo "O XDG Desktop Portal para Wayland foi instalado."
 echo "Os dotfiles foram clonados/atualizados."
+echo "O Zsh e Oh My Zsh foram instalados e configurados."
 echo "Você precisa REINICIAR o sistema agora para que as alterações entrem em vigor,"
 echo "e o SDDM inicie permitindo que você selecione a sessão Sway."
 echo "O log completo da instalação/atualização está em: $LOG_FILE"
 echo "----------------------------------------------------"
 echo ""
+
+# Recomendação de Reinício Mais Forte
+echo "Deseja reiniciar o sistema agora? (s/N): "
+read -p "" -n 1 -r
+echo
+if [[ $REPLY =~ ^[Ss]$ ]]; then
+    log_message "Reiniciando o sistema..."
+    sudo reboot
+else
+    log_message "Reinício adiado pelo usuário."
+fi
 
 exit 0
