@@ -94,7 +94,7 @@ PACKAGES=(
     xdg-user-dirs # Para criar os diretórios padrão do usuário
     xdg-desktop-portal # XDG Desktop Portal principal
     xdg-desktop-portal-wlr # Backend para Sway/Wayland
-    vlc # Adicionado VLC Media Player
+    mpv # Adicionado MPV Player
     curl # Necessário para baixar o script de instalação do Oh My Zsh
 )
 
