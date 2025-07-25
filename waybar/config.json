@@ -56,17 +56,13 @@
         "tooltip": true,
         "interval": 5
     },
-
     "network": {
-        // !!! ATENÇÃO: Troque "wlan0" pela sua interface de rede (ver com 'ip a')
-        "interface": "wlan0",
-        "format-wifi": "{essid} ({signalStrength}%) ", // Ícone de Wi-Fi
-        "format-ethernet": "{ifname} ",
-        "format-disconnected": "Desconectado ", // Ícone de aviso
-        "tooltip-format": "{ifname} via {gwaddr} ",
-        "on-click": "nm-connection-editor", // Abre o editor de conexões de rede
+        "format-wifi": "Conectado ",
+        "format-ethernet": "Conectado ",
+        "format-disconnected": "Desconectado ",
+        "on-click": "nm-connection-editor",
         "interval": 5
-    },
+        },
 
     "pulseaudio": {
         "format": "{icon} {volume}%",
