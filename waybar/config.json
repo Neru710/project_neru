@@ -43,7 +43,7 @@
 
     "temperature": {
         // !!! ATENÇÃO: Verifique sua zona térmica com 'ls /sys/class/thermal/'
-        // !!! e troque 'thermal-zone: 0' se necessário.
+        // !!! e troque 'thermal-zone: 0' se necessário.,
         "thermal-zone": 0,
         "format": " {temperatureC}°C", // Ícone de termômetro
         "critical-threshold": 80,
