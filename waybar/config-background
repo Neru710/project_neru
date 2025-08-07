@@ -36,7 +36,7 @@
 
 
     // Load Modules
-    "include": ["~/.config/waybar/modules.json"],
+    "include": ["~/.config/waybar/modules-background.json"],
 
   // Modules configuration
 

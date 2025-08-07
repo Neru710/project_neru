@@ -74,6 +74,7 @@ PACKAGES=(
     flatpak
     waybar
     pavucontrol
+    cava
     mako
     sddm
     thunar
@@ -81,6 +82,7 @@ PACKAGES=(
     tar
     unrar
     wofi
+    rofi
     kitty
     zsh # Garante que o zsh esteja instalado
     lxappearance
