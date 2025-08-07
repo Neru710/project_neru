@@ -194,6 +194,8 @@ mkdir -p "$HOME/.config/" || error_exit "Não foi possível criar o diretório $
 copy_dotfiles "$DOTFILES_LOCAL_PATH/sway" "$HOME/.config/sway" "sway"
 copy_dotfiles "$DOTFILES_LOCAL_PATH/waybar" "$HOME/.config/waybar" "waybar"
 copy_dotfiles "$DOTFILES_LOCAL_PATH/wlogout" "$HOME/.config/wlogout" "wlogout"
+copy_dotfiles "$DOTFILES_LOCAL_PATH/rofi" "$HOME/.config/rofi" "rofi"
+copy_dotfiles "$DOTFILES_LOCAL_PATH/nvim" "$HOME/.config/nvim" "nvim"
 
 # Copiar .zshrc do repositório de dotfiles para $HOME/
 log_message "Copiando/Atualizando .zshrc do repositório de dotfiles para $HOME/..."
