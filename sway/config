@@ -119,7 +119,26 @@ bindsym $mod+Shift+9 move container to workspace $ws9
 bindsym $mod+Shift+0 move container to workspace $ws10
 
 #--------------------------------
+#            Touchpad
+#--------------------------------
+bindgesture swipe:right workspace prev
+bindgesture swipe:left workspace next
+bindgesture swipe:up exec wofi --show drun
+
+#--------------------------------
 #          Move Windows
 #--------------------------------
 bindsym $mod+button1 floating_bindsym $mod+button1 move
 bindsym $mod+button2 floating_bindsym $mod+button2 resize
+
+#--------------------------------
+#         Windows Layout
+#--------------------------------
+bindsym $mod+w layout tabbed
+bindsym $mod+b splith
+bindsym $mod+v splitv
+bindsym $mod+s layout toggle split
+bindsym $mod+Shift+space floating toggle
+bindsym $mod+space focus mode_toggle
+
+
