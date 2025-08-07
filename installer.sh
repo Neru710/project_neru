@@ -89,6 +89,10 @@ PACKAGES=(
     kvantum-qt5
     git # Garante que o git esteja instalado para clonar o repositório e o yay
     noto-fonts-emoji # Boa para complementar com símbolos e emojis em fontes
+    ttf-fira-sans
+    ttf-nerd-fonts-symbols
+    ttf-font-awesome
+    ttf-fira-sans
     base-devel # Essencial para compilar pacotes do AUR (como o yay)
     xorg-xwayland # Adicionado para compatibilidade com aplicativos X11
     xdg-user-dirs # Para criar os diretórios padrão do usuário
