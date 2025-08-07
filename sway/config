@@ -43,7 +43,7 @@ bindsym $mod+Return exec kitty
 bindsym $mod+T exec kitty
 bindsym $mod+E exec thunar
 bindsym $mod+B exec firefox
-bindsym $mod+A exec wofi --show drun
+bindsym $mod+A exec rofi -show
 bindsym $mod+Q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
