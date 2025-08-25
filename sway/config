@@ -1,7 +1,7 @@
 #-------------------------------
 #   Carregar Wallpaper Defalt
 #-------------------------------
-exec_always swaybg -i ~/.config/sway/wallpapers/guitar.jpg
+exec_always swaybg -i ~/.config/sway/wallpapers/zen.jpg
 
 #-------------------------------
 #           imports
@@ -37,28 +37,30 @@ default_border none
 set $mod Mod4
 
 #--------------------------------
-#             Apps 
+#           Kill Apps 
+#--------------------------------
+bindsym $mod+Q kill
+bindsym Alt+F4 kill
+
+#--------------------------------
+#              Apps 
 #--------------------------------
 bindsym $mod+Return exec kitty
 bindsym $mod+T exec kitty
 bindsym $mod+E exec thunar
 bindsym $mod+B exec firefox
 bindsym $mod+A exec rofi -show
-bindsym $mod+Q kill
 bindsym $mod+Shift+c reload
 bindsym $mod+Shift+e exec swaynag -t warning -m 'Você quer sair?'
 
 #--------------------------------
-#           Specials
+#            Specials
 #--------------------------------
 #Tela cheia
 bindsym $mod+F fullscreen
 
 #Tirar print
 bindsym $mod+Print exec ~/.config/sway/scripts/screenshot.sh
-
-#Menu de logout
-bindsym $mod+Escape exec wlogout
 
 #--------------------------------
 #     Mudar Foco Das Janelas
@@ -130,15 +132,3 @@ bindgesture swipe:up exec wofi --show drun
 #--------------------------------
 bindsym $mod+button1 floating_bindsym $mod+button1 move
 bindsym $mod+button2 floating_bindsym $mod+button2 resize
-
-#--------------------------------
-#         Windows Layout
-#--------------------------------
-bindsym $mod+w layout tabbed
-bindsym $mod+b splith
-bindsym $mod+v splitv
-bindsym $mod+s layout toggle split
-bindsym $mod+Shift+space floating toggle
-bindsym $mod+space focus mode_toggle
-
-
