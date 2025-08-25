@@ -9,8 +9,8 @@
         "format": "🌙",
         "tooltip": false
     },
-        "clock": {
-        "format": "🕓 {:%Y-%m-%d %H:%M}",
+    "clock": {
+        "format": "🕓 {:%H:%M}",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
         "interval": 60
     },
@@ -29,7 +29,7 @@
         "path": "/sys/class/thermal/thermal_zone0/temp",
         "max-temperature": 75
     },
-        "tray": {
+    "tray": {
         "icon-size": 16
     },
     "pulseaudio": {

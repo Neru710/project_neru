@@ -1,78 +1,143 @@
-/* Barra principal */
+/*
+ * Style Monocromático Refinado para Waybar
+ * Autor: Gemini
+ * Data: 25/08/2025
+ */
+
+/* --- BARRA PRINCIPAL --- */
 #waybar {
-    background-color: rgba(0, 0, 0, 0);
-    color: #eaeaea;
-    font-family: 'Fira Code', monospace;
+    background-color: rgba(28, 28, 38, 0.6); /* Fundo grafite semitransparente e levemente azulado */
+    color: #DCE0E8; /* Texto principal em um tom de branco suave */
+    font-family: 'Fira Code', 'JetBrainsMono Nerd Font', monospace;
     font-size: 12px;
-    padding: 6px 18px;
-    border-radius: 10px;
-    margin: 8px 8px 0 8px;
+    border-radius: 12px;
+    margin: 8px;
+    border: 1px solid rgba(205, 214, 244, 0.1); /* Borda sutil para definir os limites */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3); /* Sombra mais suave */
 }
 
-/* Módulos gerais - sem margem lateral */
-#cpu, #memory, #temperature, #clock, #tray, #pulseaudio, #network, #custom-icon, #custom-off {
-    background-color: #181818;
-    color: #eaeaea;
-    padding: 4px 14px;
-    margin: 0;
-    font-weight: 500;
-    transition: background 0.2s, color 0.2s;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.10);
-}
-
-/* Espaçamento só no primeiro e último módulo da esquerda */
-.modules-left > widget:first-child > * {
-    margin-left: 4px;
-}
-.modules-left > widget:last-child > * {
-    margin-right: 4px;
-}
-
-/* Espaçamento só no primeiro e último módulo da direita */
-.modules-right > widget:first-child > * {
-    margin-left: 4px;
-}
-.modules-right > widget:last-child > * {
-    margin-right: 4px;
-}
-
-/* Ícone customizado */
+/* --- ESTILO BASE PARA TODOS OS MÓDULOS --- */
+#clock,
+#cpu,
+#memory,
+#temperature,
+#network,
+#pulseaudio,
+#tray,
 #custom-icon,
 #custom-off,
-#tray {
-    font-size: 16px;
-    margin-right: 0;
-    margin-left: 0;
-}
-
-/* Centro: workspaces */
-#workspaces {
-    background-color: #181818;
-    color: #eaeaea;
-    border-radius: 8px;
-    padding: 6px 18px;
-    font-weight: bold;
-    margin: 0 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.18);
-}
 #workspaces button {
-    background: none;
-    color: inherit;
+    background-color: #000000; /* Fundo dos módulos (cinza-azulado escuro) */
+    padding: 0 12px;
+    margin: 0;
     border: none;
-    padding: 4px 10px;
-    margin: 0 2px;
-    border-radius: 6px;
-    transition: background 0.2s, color 0.2s;
-}
-#workspaces button.focused {
-    background: #eaeaea;
-    color: #111111;
-    font-weight: bold;
+    border-radius: 0;
+    font-weight: 500;
+    transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-/* Hover para módulos */
-#custom-icon:hover, #tray, #cpu:hover, #memory:hover, #temperature:hover, #clock:hover,
-#pulseaudio:hover, #network:hover, #custom-off:hover, #workspaces button:hover {
-    background-color: #222222;
-    color: #ffffff;
+/* --- EFEITO HOVER (PASSAR O MOUSE) --- */
+#clock:hover,
+#cpu:hover,
+#memory:hover,
+#temperature:hover,
+#network:hover,
+#pulseaudio:hover,
+#tray:hover,
+#custom-icon:hover,
+#custom-off:hover,
+#workspaces button:hover {
+    background-color: #4C566A; /* Cinza mais claro para feedback */
+    color: #ECEFF4;
+}
+
+/* --- WORKSPACES --- */
+#workspaces {
+    background: none;
+    margin: 0 8px; /* Espaçamento do grupo central */
+}
+
+#workspaces button {
+    color: #81A1C1; /* Cor para workspaces inativos (um azul suave) */
+    font-weight: bold;
+    padding: 0 8px; /* Padding um pouco menor para caber mais workspaces se necessário */
+}
+
+#workspaces button.focused {
+    background-color: #ECEFF4; /* Fundo branco-gelo para o workspace ativo */
+    color: #2E3440;           /* Texto escuro para contraste máximo */
+    border-radius: 8px; /* Arredonda apenas o workspace ativo, criando um efeito "pílula" */
+}
+
+#workspaces button.urgent {
+    background-color: #BF616A; /* Cor de destaque para urgência (vermelho suave) */
+    color: #ECEFF4;
+    border-radius: 8px;
+}
+
+/* --- AGRUPAMENTO E BORDAS DOS MÓDULOS --- */
+
+/* Junta os módulos com uma margem negativa sutil */
+#cpu, #memory, #temperature,
+#network, #pulseaudio, #tray {
+    margin-right: -1px;
+}
+
+/* Bordas Grupo Esquerda */
+#custom-icon {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+#clock {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    margin-right: 10px; /* <<--- ADICIONE/MODIFIQUE ESTA LINHA */
+}
+
+/* Bordas Grupo Performance */
+#cpu {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+#temperature {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* Bordas Grupo Direita */
+#tray {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+#custom-off {
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+/* --- DETALHES E ÍCONES (OPCIONAL) --- */
+/* Adiciona cor sutil aos ícones para melhor identificação */
+#cpu .icon {
+    color: #88C0D0; /* Azul claro */
+}
+
+#memory .icon {
+    color: #A3BE8C; /* Verde suave */
+}
+
+#temperature .icon {
+    color: #EBCB8B; /* Amarelo suave */
+}
+
+#pulseaudio .icon {
+    color: #B48EAD; /* Roxo suave */
+}
+
+#network .icon {
+    color: #8FBCBB; /* Ciano */
+}
+
+/* Cor para quando o módulo indicar um estado crítico */
+#temperature.critical {
+    background-color: #BF616A; /* Vermelho suave */
+    color: #ECEFF4;
 }
