@@ -4,7 +4,7 @@
 
 # --- Variáveis de Configuração ---
 PROJECT_NAME="Configurações Sway/Waybar"
-DOTFILES_REPO="https://github.com/Wagner0070/project_neru.git"
+DOTFILES_REPO="https://github.com/Neru710/project_neru.git"
 INSTALL_DIR="$HOME/.$PROJECT_NAME_temp" # Diretório temporário para clonar o dotfile e o yay
 DOTFILES_LOCAL_PATH="$INSTALL_DIR/dotfiles" # Caminho onde os dotfiles serão clonados temporariamente
 LOG_FILE="/tmp/${PROJECT_NAME// /_}_install.log" # Arquivo de log temporário
@@ -90,11 +90,26 @@ PACKAGES=(
     qt6ct
     kvantum-qt5
     git # Garante que o git esteja instalado para clonar o repositório e o yay
-    noto-fonts-emoji # Boa para complementar com símbolos e emojis em fontes
-    ttf-fira-sans
-    ttf-nerd-fonts-symbols
-    ttf-font-awesome
-    ttf-fira-sans
+    # Início das fontes adicionadas
+    ttf-dejavu
+    ttf-liberation
+    ttf-roboto
+    ttf-ubuntu-font-family
+    ttf-fira-code
+    ttf-jetbrains-mono
+    noto-fonts
+    noto-fonts-cjk
+    noto-fonts-emoji # Já existia, mas mantido na lista para clareza
+    ttf-droid
+    ttf-inconsolata
+    ttf-cascadia-code
+    ttf-hack
+    ttf-hack-nerd
+    ttf-iosevka
+    # Fim das fontes adicionadas
+    ttf-fira-sans # Já existia, mantido na lista
+    ttf-nerd-fonts-symbols # Já existia, mantido na lista
+    ttf-font-awesome # Já existia, mantido na lista
     base-devel # Essencial para compilar pacotes do AUR (como o yay)
     xorg-xwayland # Adicionado para compatibilidade com aplicativos X11
     xdg-user-dirs # Para criar os diretórios padrão do usuário
