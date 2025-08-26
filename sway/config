@@ -125,10 +125,4 @@ bindsym $mod+Shift+0 move container to workspace $ws10
 #--------------------------------
 bindgesture swipe:right workspace prev
 bindgesture swipe:left workspace next
-bindgesture swipe:up exec wofi --show drun
-
-#--------------------------------
-#          Move Windows
-#--------------------------------
-bindsym $mod+button1 floating_bindsym $mod+button1 move
-bindsym $mod+button2 floating_bindsym $mod+button2 resize
+bindgesture swipe:up exec rofi -show
