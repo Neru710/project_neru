@@ -84,6 +84,7 @@ PACKAGES=(
     wofi
     rofi
     kitty
+    btop
     zsh # Garante que o zsh esteja instalado
     lxappearance
     qt5ct
@@ -105,11 +106,10 @@ PACKAGES=(
     ttf-cascadia-code
     ttf-hack
     ttf-hack-nerd
-    ttf-iosevka
+    ttf-fira-sans
+    ttf-nerd-fonts-symbols
+    ttf-font-awesome
     # Fim das fontes adicionadas
-    ttf-fira-sans # Já existia, mantido na lista
-    ttf-nerd-fonts-symbols # Já existia, mantido na lista
-    ttf-font-awesome # Já existia, mantido na lista
     base-devel # Essencial para compilar pacotes do AUR (como o yay)
     xorg-xwayland # Adicionado para compatibilidade com aplicativos X11
     xdg-user-dirs # Para criar os diretórios padrão do usuário
