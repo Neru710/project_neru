@@ -78,6 +78,7 @@ PACKAGES=(
     mako
     sddm
     thunar
+    engrampa
     unzip
     tar
     unrar
