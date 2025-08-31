@@ -71,6 +71,9 @@ PACKAGES=(
     sway
     swaybg
     firefox
+    grim
+    swappy
+    slurp
     flatpak
     waybar
     pavucontrol
