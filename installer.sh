@@ -74,6 +74,7 @@ PACKAGES=(
     grim
     swappy
     slurp
+    wl-clipboard
     flatpak
     waybar
     pavucontrol
