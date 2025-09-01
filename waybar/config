@@ -15,16 +15,16 @@
         "interval": 60
     },
     "cpu": {
-        "format": " {usage}%",
+        "format": "🧠 {usage}%",
         "interval": 5,
         "format-precision": 0
     },
     "memory": {
-        "format": " {}%",
+        "format": "📊 {}%",
         "interval": 5
     },
     "temperature": {
-        "format": " {}°C",
+        "format": "🌡️ {}°C",
         "interval": 10,
         "path": "/sys/class/thermal/thermal_zone0/temp",
         "max-temperature": 75
